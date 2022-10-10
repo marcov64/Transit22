@@ -1,0 +1,8 @@
+Model transOct22 (ver. 1.0)
+
+This is a working version of the Transit model. As of October 10th, 2022, the model includes gov. demand, taxes, interest rates, replacement of capital units.
+
+Open issues:
+1) The total of bank's profits distributed to consumers appears larger than the actual profits of the banking sector.
+2) Entry and exit of FD firms and EN firms needs to be activated and tested for likely bugs and/or SFC violations.
+3) Transition mechanism and bugs for green capital for EN firms needs to be tested.
