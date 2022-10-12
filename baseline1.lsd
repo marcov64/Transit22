@@ -810,7 +810,7 @@ Label Root
 					Var: EFirmControlCapital
 					Var: EFirmControlCurrent
 					Var: EnergyProductionEF
-					Param: ExcessCostEF
+					Var: ExcessCostEF
 					Var: ExpectedIncomePP
 					Param: FossilFuel
 					Param: IdFirmEN
@@ -1200,11 +1200,11 @@ Label Root
 			Param: taxrate
 			Param: FirmsWaitTime
 			Param: GovernmentExpenses
-			Var: GovernmentFund
 			Param: minShareGovGDP
 			Param: maxShareGovGDP
 			Param: shareGovGDP
 			Var: InterestGovFund
+			Var: GovernmentFund
 			Var: GovDemTot
 			Var: ENGDP
 			Param: shareGDdown
@@ -1325,7 +1325,7 @@ Param: AvKProfit 0 n + n n	-1
 Var: AvMarkup 0 n + n n
 Var: AvMaxLProd 0 n + n n
 Param: AvMkup 0 n + n n	-1
-Var: AvPrice 1 n + n n	-1
+Var: AvPrice 1 s + n n	-1
 Param: AvProfit 0 n + n n	-1
 Param: AvRatioVacancies 0 n + n n	-1
 Var: AvWagecoeff 0 n + n n
@@ -1355,7 +1355,7 @@ Param: InProgress 0 n + n n	0
 Param: IncrAggProd 0 n + n n	0.01
 Param: IncrAvPrice 0 n + n n	0.01
 Param: IndexYear 0 n + n n	2
-Var: Inflation 1 n + n n	-1
+Var: Inflation 1 s + n n	-1
 Func: Init 0 n + n n
 Param: InitAggProd 0 n + n n	1
 Param: InitAvPrice 0 n + n n	10
@@ -1367,12 +1367,12 @@ Param: InventGrowth 0 n + n n	0
 Param: InvestmentGdpRatio 0 n + n n	-1
 Param: JobLoss 0 n + n n	0
 Param: KaNW 0 n + n n	0.1
-Var: LTUnemployment 1 n + n n	-1
+Var: LTUnemployment 1 s + n n	-1
 Param: LowerMinWage 0 n + n n	-1
 Var: MaxNumWorkers 1 n + n n	1000000
 Param: Max_x 0 n + n n	102
 Var: Mechanisation 0 n + n n
-Var: MinWage 1 n + n n	10
+Var: MinWage 1 s + n n	10
 Var: MinWageIndex 0 n + n n
 Param: Min_x 0 n + n n	98
 Param: MinimumCMaxE 0 n + n n	10
@@ -1396,20 +1396,20 @@ Var: MovAvPrice 1 n + n n	-1
 Param: MovAvTotHired 1 n + n n	-1
 Var: MovAvTotVac 1 n + n n	-1
 Param: NaturalUR 0 n + n n	20
-Var: NbrWorkers 1 n + n n	-1
+Var: NbrWorkers 1 s + n n	-1
 Param: OutputConcentration 0 n + n n	-1
 Param: PTrend 0 n + n n	0
 Var: ProdIndex 0 n + n n
 Var: Production 0 n + n n
 Param: Redistribute 0 n + n n	0
-Var: STUnemployment 1 n + n n	1
+Var: STUnemployment 1 s + n n	1
 Param: ShareInit 0 n + n n	1
 Param: TTB_multiplWinner 0 n + n n	0
 Param: TauInit 0 n + n n	1
 Param: TotAvWage 0 n + n n	2263
 Var: TotConsConst 0 n + n n
 Var: TotDConsConst 0 n + n n
-Var: TotEnergyConsumption 1 n + n n	0
+Var: TotEnergyConsumption 1 s + n n	0
 Param: TotHired 0 n + n n	20
 Param: TotHiredLag 0 n + n n	20
 Var: TotIncomeCapitaReal 0 n + n n
@@ -1418,7 +1418,7 @@ Var: TotUSales 0 n + n n
 Var: TotVacancies 1 n + n n	27910000
 Param: TotalKProduction 0 n + n n	4.30599999979605e-314
 Var: Trade 0 n + d n
-Var: UnemploymentRate 1 n + n n	-1
+Var: UnemploymentRate 1 s + n n	-1
 Param: UpperMinWage 0 n + n n	1.02
 Param: WageGrowth 0 n + n n	0.0006369
 Param: aAgProd 0 n + n n	0.01
@@ -1492,7 +1492,7 @@ Param: FirmsIGdpRatio 0 n + n n	-1
 Param: FirmsInomGdpRatio 0 n + n n	-1
 Var: TotSavings 0 n + n n
 Var: SavingsIncomeRatio 0 n + n n
-Var: ExcessEnergyRatio 0 n + n n
+Var: ExcessEnergyRatio 0 s + n n
 Var: AvUtilisationRate 0 n + n n
 Var: AvUtilisationBrown 0 n + n n
 Var: AvUtilisationGreen 0 n + n n
@@ -1523,25 +1523,25 @@ Param: BrownWaitTime 0 n + n n	-1
 Param: GreenWaitTime 0 n + n n	-1
 Param: TotProfit 0 n + n n	0
 Var: TaxRevenues 1 n + n n	0
-Param: taxrate 0 n + n n	0
+Param: taxrate 0 n + n n	0.3
 Param: FirmsWaitTime 0 n + n n	-1
 Param: GovernmentExpenses 0 n + n n	0
-Var: GovernmentFund 1 n + n n	0
 Param: minShareGovGDP 0 n + n n	0.01
 Param: maxShareGovGDP 0 n + n n	0.9
 Param: shareGovGDP 0 n + n p	0
 Var: InterestGovFund 1 n + n n	0
-Var: GovDemTot 1 n + n n	0
+Var: GovernmentFund 1 s + d n	0
+Var: GovDemTot 1 s + d n	0
 Var: ENGDP 0 n + n n
 Param: shareGDdown 0 n + n n	0
-Var: shareGDup 1 n + n n	0
+Var: shareGDup 1 n + n n	0.5
 Param: IncomeTaxShare 0 n + n n	0
 Var: GDGDPRatio 0 n + n n
 Var: DeficitGDPRatio 0 n + n n
 Param: stepshareGDup 0 n + n n	0.005
-Param: minshareGDup 0 n + n n	0
-Var: GovDeficit 1 n + n n	0
-Var: GovDebtGDPRatio 0 n + n n
+Param: minshareGDup 0 n + n n	0.3
+Var: GovDeficit 1 s + n n	0
+Var: GovDebtGDPRatio 0 s + n n
 Param: Redistribute1 0 n + n n	0
 Param: DPrice 0 n + n n	0
 Param: DProductivity 0 n + n n	0
@@ -1562,13 +1562,13 @@ Var: Exit 1 n + n n	0
 Func: CounterIdFirm 1 n + n n	100
 Param: coefMarkupVar 0 n + n n	0.05
 Param: CapitalIntens 0 n + n n	2
-Param: ExitFlag 0 n + n n	0
+Param: ExitFlag 0 n + n n	1
 Param: DivisorLiquidityFinance 0 n + n n	20
 Param: capMinWage 0 n + n n	0.04
 Var: TotEN 0 n + n n
 Param: ControlWaiting 0 n + n n	0
 Var: AvDiffCapacity 0 n + n n
-Var: NbrFirms 0 n + n n
+Var: NbrFirms 0 s + n n
 Var: NbrNotWaiting 0 n + n n
 Var: NbrWaiting 0 n + n n
 Var: TotBacklog 0 n + n n
@@ -1578,7 +1578,7 @@ Param: NumWorkersMaxGr 0 n + n n	0.005
 Param: NumWorkersMinInc 0 n + n n	5
 Var: TotNumWorkers 0 n + n n
 Var: TotUnitDemand 0 n + n n
-Var: TotQ 0 n + n n
+Var: TotQ 0 s + n n
 Param: sPrice 0 n + n n	0
 Param: aClearingPrice 0 n + n n	0.5
 Param: aaNW 0 n + n n	0.02
@@ -1600,7 +1600,7 @@ Param: TimeRepayment 0 n + n n	50
 Param: CapitalDestroyed 0 s + n n	0
 Var: SumCashF 1 n + n n	0
 Var: SumOutstandingDebtFCh 0 n + n n
-Var: SumMonetarySales 0 n + n n
+Var: SumMonetarySales 0 s + n n
 Var: SumInterestDepositsF 0 n + n n
 Var: SumOverdraftPaymentF 0 n + n n
 Var: SumInterestPaymentF 0 n + n n
@@ -1618,7 +1618,7 @@ Param: RatioProfitGDP 1 n + n n	0
 Param: minMarkup 0 n + n n	2
 Param: maxMarkup 0 n + n n	2
 Param: LTTotProfit 1 n + n n	0
-Var: SumTaxF 0 n + n n
+Var: SumTaxF 0 s + n n
 Param: aMarkupFD 0 n + n n	0.99
 Param: maxShareKCostRevenues 0 n + n n	0.1
 Param: ThresholdExtraCash 0 n + n n	0.5
@@ -1633,7 +1633,7 @@ Var: TotalInterestPaymentF 1 n + n n	0
 Var: ControlODPaymentF 0 n + n n
 Var: SumENCost 0 n + n n
 Var: SumCapitalPaymentF 0 n + n n
-Var: SumTotAssetsF 1 n + n n	0
+Var: SumTotAssetsF 1 s + n n	0
 Var: SumTotAssetsFCh 0 n + n n
 Var: SumScrappedCapitalF 0 n + n n
 
@@ -1769,7 +1769,7 @@ Param: KExpenditures 0 n + n n	10000	10000	10000	10000	10000	10000	10000	10000	1
 Var: MaxKQ 0 n + n n
 Var: IncLearningK 1 n + n n	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
 Param: IncEfficiency 0 n + n n	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5
-Var: PrincipalF 1 s + n n	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000
+Var: PrincipalF 1 n + n n	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000
 Var: InterestF 0 n + n n
 Var: InstallmentF 0 n + n n
 Var: FDKCapacity 0 n + n n
@@ -1827,8 +1827,8 @@ Param: eta 0 n + n n	0.4
 Var: PayTime 0 n + n n
 Var: TotWage 0 n + n n
 Var: TotPremia 0 n + n n
-Var: TotIncome 0 n + n n
-Var: TotIndividuals 0 n + n n
+Var: TotIncome 0 s + n n
+Var: TotIndividuals 0 s + n n
 Var: Atkinson 0 n + n n
 Var: AvIncome 0 n + n n
 Var: TotIncomeCapita 0 n + n n
@@ -1932,9 +1932,9 @@ Var: OverdraftPaymentC 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 
 Object: Machinery C	1
 Param: AvCurrEff 0 n + n n	1
-Var: AvCurrProd 0 n + n n
+Var: AvCurrProd 0 s + n n
 Param: AvGreenKPrice 0 n + n n	1
-Param: AvKPrice 0 n + n n	10510
+Param: AvKPrice 0 s + n n	10510
 Var: AvLocalPriceProd 0 n + n n
 Param: AvWaitTime 0 n + n n	1.131
 Param: DiscountUsedK 0 n + n n	1
@@ -1945,13 +1945,13 @@ Param: KFirmSeeRoW 0 n + n n	-1
 Param: KNomGDPShare 0 n + n n	-1
 Param: KOutputShare 0 n + n n	0
 Func: PlaceOrder 0 n + n n
-Func: PlaceOrderEF 0 n + n n
+Func: PlaceOrderEF 0 n + d n
 Param: PrudenceLending 0 n + n n	1
 Var: RemoveEFOrders 0 n + n n
 Var: SumCashKF 1 n + n n	0
 Var: SumKLaborCost 0 n + n n
-Var: SumKRdExpenditure 0 n + n n
-Var: SumKRevenues 0 n + n n
+Var: SumKRdExpenditure 0 s + n n
+Var: SumKRevenues 0 s + n n
 Var: SumKWagePrem 0 s + n n
 Var: TotInvestment 0 n + n n
 Var: TotKEN 0 n + n n
@@ -1971,7 +1971,7 @@ Var: EnergyFrontierProd 1 n + n n	100
 Param: KExtraCapacity 0 n + n n	2
 Var: SumTaxK 0 n + n n
 Param: KPriceOverCharge 0 n + n n	0.1
-Var: SumKOandMRevenue 0 n + d n
+Var: SumKOandMRevenue 0 n + n n
 Var: SumOverdraftK 1 n + n n	0
 
 Object: KFirm C	3
@@ -2091,9 +2091,9 @@ Object: Sectors C	10
 Param: IdGood 0 n + n n	1	2	3	4	5	6	7	8	9	10
 Param: NFirmsS 0 n + n n	0	0	0	0	0	0	0	0	0	0
 Param: SInvHerf 0 n + n n	0	0	0	0	0	0	0	0	0	0
-Param: TotSalesS 0 n + n n	0	0	0	0	0	0	0	0	0	0
+Param: TotSalesS 0 s + n n	0	0	0	0	0	0	0	0	0	0
 Param: AvxS 0 n + n n	0	0	0	0	0	0	0	0	0	0
-Param: AvpS 0 n + n n	0	0	0	0	0	0	0	0	0	0
+Param: AvpS 0 s + n n	0	0	0	0	0	0	0	0	0	0
 Var: FrontierX 1 n + n n	0	0	0	0	0	0	0	0	0	0
 Param: maxXS 0 n + n n	0	0	0	0	0	0	0	0	0	0
 Param: aFrontierX 0 n + n n	0.9	0.9	0.9	0.9	0.9	0.9	0.9	0.9	0.9	0.9
@@ -2143,10 +2143,10 @@ Param: app5 0 n + n n	0	0	0	0	0	0	0	0	0	0
 Object: Bank C	1
 Param: InterestRateDeposits 0 n + n n	0.0003685986881474
 Var: TotalOverdraft 0 n + n n
-Var: TotalOutstandingDebt 1 n + n n	0
+Var: TotalOutstandingDebt 1 s + n n	0
 Var: TotalInterestCollected 0 n + n n
 Var: TotalInterestDeposits 0 n + n n
-Var: TotalAssets 1 n + n n	1
+Var: TotalAssets 1 s + n n	1
 Var: OwnFundsBank 1 n + n n	0
 Var: TotalProfitsBank 0 n + n n
 Var: RetainedProfitsBank 0 n + n n
@@ -2161,11 +2161,11 @@ Var: TotalOutstandingDebtV 1 n + n n	0
 Var: ExpectedLoanDefaultsPC 1 n + n n	0
 Var: TotalProfitsTargetBank 0 n + n n
 Var: InterestRateSpread 0 n + n n
-Var: InterestRate 1 n + n n	0.01
+Var: InterestRate 1 s + n n	0.01
 Var: CapitalAdequacyRatio 0 n + n n
 Var: BankControlCapital 0 s + n n
 Var: BankControlCurrent 0 s + n n
-Var: BankCapital 1 n + n n	0
+Var: BankCapital 1 s + d n	0
 Param: MinInterestRateSpread 0 n + n n	0.0003685986881474
 Param: NonPerformingLoansTotal 0 n + n n	0
 Param: MaxInterestRateSpread 0 n + n n	0.003536244470606
@@ -2177,7 +2177,7 @@ Var: TotLiabilitiesEF 0 n + n n
 Var: TotLiabilitiesF 0 n + n n
 Var: TotLiabilitiesHH 0 n + n n
 Var: TotLiabilitiesKF 0 n + n n
-Var: ControlBankBS 0 n + n n
+Var: ControlBankBS 0 n + d n
 Var: sInterestRate 1 n + n n	0.01
 Var: TotLiabilitiesEFV 1 n + n n	0
 Var: TotLiabilitiesFV 1 n + n n	0
@@ -2196,7 +2196,7 @@ Func: CallalphaBrown 0 n + n n
 Func: CallalphaGreen 0 n + n n
 Param: CapitalDestroyedEF 0 n + n n	0
 Param: CopyTotalEnergy 0 n + n n	1506000000
-Var: DemographyEN 0 n + d n
+Var: DemographyEN 0 n + n n
 Func: EntryEF 0 n + n n
 Param: ExcessEnergy 0 s + n n	0
 Param: ExcessEnergyL 0 n + n n	0
@@ -2221,26 +2221,26 @@ Param: MultiplierCapacityENBrown 0 n + n n	3
 Param: MultiplierCapacityENGreen 0 n + n n	3
 Param: MultiplierProductivityEN 0 n + n n	100
 Param: NbrBrown 0 n + n n	0
-Var: NbrEF 0 n + n n
+Var: NbrEF 0 s + n n
 Param: NbrGreen 0 n + n n	0
-Var: NbrPP 0 n + n n
+Var: NbrPP 0 s + n n
 Param: OverCostMarkup 0 n + n n	0
-Var: PriceEN 1 n + n n	8.134
+Var: PriceEN 1 s + d n	8.134
 Var: PriceENMA 1 n + n n	8.134
-Param: ShareBrownEnergy 0 n + n n	0
+Param: ShareBrownEnergy 0 s + n n	0
 Param: ShareGreenEnergy 0 n + n n	0
 Param: SpeedMA 0 n + n n	0.8
 Param: SpeedPriceENMA 0 n + n n	0.9
 Param: StepGreenPremium 0 n + n n	10000
-Var: SumCashEF 1 n + n n	0
+Var: SumCashEF 1 s + n n	0
 Var: SumCashEFCh 0 n + n n
-Var: SumEFirmControlCapital 0 n + n n
-Var: SumEFirmControlCurrent 0 n + n n
+Var: SumEFirmControlCapital 0 s + n n
+Var: SumEFirmControlCurrent 0 s + n n
 Var: SumEnergyProductionEF 0 n + n n
 Var: SumEnergyProductionPP 1 n + n n	0
 Var: SumInterestDepositsEF 0 n + n n
 Var: SumInterestPaymentEF 0 n + n n
-Var: SumInvestmentEF 0 n + n n
+Var: SumInvestmentEF 0 s + n n
 Var: SumInvestmentSpendingEF 0 n + n n
 Var: SumLaborCostEF 0 n + n n
 Var: SumMaxEnergyCapacity 0 n + n n
@@ -2253,7 +2253,7 @@ Param: ThresholdCapacityEF 0 n + n n	0.9
 Param: TimeRepaymentEF 0 n + n n	100
 Param: TotBrownCapacity 0 n + n n	1
 Var: TotENCapacity 0 n + n n
-Var: TotExcessCost 0 n + n n
+Var: TotExcessCost 0 s + n n
 Param: TotGreenCapacity 0 n + n n	1
 Var: WaitingEFRatio 0 n + n n
 Param: alphaBrown 0 n + n n	1
@@ -2274,9 +2274,9 @@ Var: OrderedKEN 0 n + n n
 Param: maxCapacityProductionEN 0 n + n n	1.2
 Param: minSize 0 n + n n	0.005
 Var: FairEnergy 0 n + n n
-Param: shareFairEnergy 0 n + n n	0.99
+Param: shareFairEnergy 0 n + n n	0.1
 Var: MarketEnergyCapacity 0 n + n n
-Param: ExitFlagEF 0 n + n n	0
+Param: ExitFlagEF 0 n + n n	1
 Func: PermissionInv 0 n + n n
 Param: smoothPPP 0 n + n n	0
 Var: PercUnusedENCapacity 0 n + n n
@@ -2322,7 +2322,7 @@ Param: EFType 0 n + n n	0	0	0	0	0	0	0	0	0	0
 Var: EFirmControlCapital 0 s + n n
 Var: EFirmControlCurrent 0 s + n n
 Var: EnergyProductionEF 0 n + n n
-Param: ExcessCostEF 0 s + n n	0	0	0	0	0	0	0	0	0	0
+Var: ExcessCostEF 0 s + n n
 Var: ExpectedIncomePP 0 n + n n
 Param: FossilFuel 0 n + n n	0	0	0	0	0	0	0	0	0	0
 Param: IdFirmEN 0 n + n n	1	2	3	4	5	6	7	8	9	10
@@ -2417,8 +2417,8 @@ Var: PricePPDoped 0 n + n n
 
 SIM_NUM 1
 SEED 1
-MAX_STEP 5000
-EQUATION fun_trJul22.cpp
+MAX_STEP 5000 1 0 0 0 0 0 0
+EQUATION fun_ExitDemEnd.cpp
 MODELREPORT report_Sim1.html
 
 DESCRIPTION
@@ -3436,7 +3436,7 @@ END_DESCRIPTION
 Parameter_taxrate
 (no description available )
 _INIT_
-All 1 instances equal to 0
+All 1 instances equal to 0.3
 END_DESCRIPTION
 
 Parameter_FirmsWaitTime
@@ -3445,12 +3445,6 @@ END_DESCRIPTION
 
 Parameter_GovernmentExpenses
 (no description available )
-END_DESCRIPTION
-
-Variable_GovernmentFund
-(no description available )
-_INIT_
-All 1 instances equal to 0
 END_DESCRIPTION
 
 Parameter_minShareGovGDP
@@ -3467,6 +3461,12 @@ END_DESCRIPTION
 
 Variable_InterestGovFund
 (no description available )
+END_DESCRIPTION
+
+Variable_GovernmentFund
+(no description available )
+_INIT_
+All 1 instances equal to 0
 END_DESCRIPTION
 
 Variable_GovDemTot
@@ -3488,7 +3488,7 @@ END_DESCRIPTION
 Variable_shareGDup
 (no description available )
 _INIT_
-All 1 instances equal to 0
+All 1 instances equal to 0.5
 END_DESCRIPTION
 
 Parameter_IncomeTaxShare
@@ -3514,7 +3514,7 @@ END_DESCRIPTION
 Parameter_minshareGDup
 (no description available )
 _INIT_
-All 1 instances equal to 0
+All 1 instances equal to 0.3
 END_DESCRIPTION
 
 Variable_GovDeficit
@@ -3608,7 +3608,7 @@ END_DESCRIPTION
 Parameter_ExitFlag
 (no description available )
 _INIT_
-All 1 instances equal to 0
+All 1 instances equal to 1
 END_DESCRIPTION
 
 Parameter_DivisorLiquidityFinance
@@ -6400,7 +6400,7 @@ END_DESCRIPTION
 Parameter_shareFairEnergy
 (no description available )
 _INIT_
-All 1 instances equal to 0.99
+All 1 instances equal to 0.1
 END_DESCRIPTION
 
 Variable_MarketEnergyCapacity
@@ -6410,7 +6410,7 @@ END_DESCRIPTION
 Parameter_ExitFlagEF
 (no description available )
 _INIT_
-All 1 instances equal to 0
+All 1 instances equal to 1
 END_DESCRIPTION
 
 Function_PermissionInv
@@ -6605,7 +6605,7 @@ Variable_EnergyProductionEF
 (no description available )
 END_DESCRIPTION
 
-Parameter_ExcessCostEF
+Variable_ExcessCostEF
 (no description available )
 END_DESCRIPTION
 
@@ -7106,7 +7106,7 @@ v[5] = V("SumCapitalPaymentEF");
 v[6] = V("SumInterestPaymentEF");
 v[7] = V("SumSumKOandMExpenditure");
 v[8] = V("SumTaxEF");
-
+v[9] = V("TotExcessCost");
 v[14] = V("SumCashEFCh");
 
 v[17] = V("SumScrappedCapitalEN");
@@ -7116,8 +7116,7 @@ v[16] = V("SumOutstandingDebtEFCh")-v[15]-v[17];
 
 
 v[11]=v[0]+v[4];//plus
-//v[12]=v[1]+v[2]+v[3]+v[5]+v[6]+v[7]+v[8]; //minus
-v[12]=v[1]+v[2]+v[3]+v[6]+v[7]+v[8]; //minus ignoring capital repayment
+v[12]=v[1]+v[2]+v[3]+v[6]+v[7]+v[8]+v[9]; //minus ignoring capital repayment
 
 v[13]=v[14]+v[12]-v[11]-v[16];
 
@@ -9637,8 +9636,8 @@ v[0] = V("TotalInterestPaymentF");
 v[1] = V("SumOverdraftPaymentC");
 v[2] = V("SumOverdraftPaymentKF");
 v[3] = V("TotalInterestPaymentEF");
-v[5] = V("InterestGovFund");
-v[4]=v[0]+v[1]+v[2]+v[3]+v[5];
+//v[5] = V("InterestGovFund");
+v[4]=v[0]+v[1]+v[2]+v[3];
 RESULT(v[4] )
 
 EQUATION("TotalInterestPaymentF")
@@ -11125,18 +11124,15 @@ EQUATION("TotExcessCost")
 /*
 Total excess cost to be distrubuted to classes
 */
-v[0]=V("ExcessEnergy");
-//v[1]=V("OverCostMarkup");
+v[0]=0;
 
-if(V("EFType")==0)
- v[2]=V("PriceENBrown");
-else
- v[2]=V("PriceENGreen");
-//v[10]=v[0]*v[1]*v[2];
-v[10]=v[0]*v[2];
-if(v[10]<0)
-	v[10]=0;
-RESULT(v[10] )
+CYCLE(cur, "EnergyFirm")
+{
+	v[0] += VS(cur, "ExcessCostEF");
+}
+
+
+RESULT(v[0] )
 
 
 EQUATION("ExcessCostIncome")
@@ -14104,15 +14100,15 @@ CYCLE(cur, "PP")
 	if(VS(cur->hook, "EFType")==0)
 	 {
 	  v[41]+=v[2]; //brown
-	  v[43] = VS(cur, "PricePP");//highest brown price
+	  v[43] = VS(cur, "PricePP");//highest brown price because the PP are ranked for increasing PricePP levels
 	 }
 	else
 	 {
  	  v[42]+=v[2]; //green energy
-	  v[44] = VS(cur, "PricePP");//highest green price
+	  v[44] = VS(cur, "PricePP");//highest green price because the PP are ranked for increasing PricePP levels
 	 }
 	}
-	WRITES(cur->hook, "ShareENPP", v[2]/v[40]);
+	WRITES(cur->hook, "ShareENPP", v[2]);//numerator of the share of en for the pp
 
 	v[30] = VS(cur, "PricePP"); // record the last producer
 
@@ -14138,8 +14134,7 @@ if(v[0]>0)
  {
 	CYCLE(cur, "PP")
 	 {
-		v[20]=VS(cur->hook,"ShareENPP");
-		//v[20]=V("ShareCapacityPP");
+		v[20] = MULTS(cur->hook, "ShareENPP", 1/(v[41]+v[42]));//share of competitively distributed energy
 		v[21]=v[20]*v[0]; // Distribute excess demand to PP proportionaly to their capacity
 		INCRS(cur->hook, "EnergyProductionPP", v[21]);
 		v[90]+=v[21];
@@ -14147,8 +14142,6 @@ if(v[0]>0)
 
  }
 
-//v[91]=v[0]-v[90];
-//sprintf(msg, "\n v91(%g)", v[91]); plog(msg);
 
 RESULT(v[3])
 
@@ -15325,7 +15318,7 @@ v[3] = V("WaitingEF");
 if(v[3]==1)
  {
  //sprintf(msg, "\n EF Waiting %lf", v[0] ); plog(msg);
- 	END_EQUATION(1); //skip the equation if you already placed an order. To be edited to give the possibility to remove a too late order
+ 	END_EQUATION(0); //skip the equation if you already placed an order. To be edited to give the possibility to remove a too late order
  }
 //we are here only if there is no pending order
 
@@ -15336,7 +15329,7 @@ if(v[52]==1 && V("NumPP")>1)
 v[50] = V("TimeDeliveryPP");
 v[51] = V("FrequencyInvEF");
 if(v[0]-v[50]<v[51] && v[52]==0)
-  END_EQUATION(1);
+  END_EQUATION(2);
 WRITE("InvestmentSpendingEF",0); //sprintf(msg, "\n InvestmentDecisionEF(%g)", v[12]); plog(msg);
 v[1]=V("SumMaxEnergyCapacity");
 v[41] = V("OrderedKEN");
@@ -15345,14 +15338,15 @@ v[42] = V("maxCapacityProductionEN");
 if(v[1]+v[41]>v[2]*v[42] && v[3]!=-1 && v[52]==0)
 	{
   //sprintf(msg, "\n MaxKExpenditureEF<=0 %lf", v[7] ); plog(msg);
- 	END_EQUATION(1);
+ 	END_EQUATION(3);
  	}
 v[50]=V("MaxEnergyCapacity");
 v[7] = V("MaxKExpenditureEF");
-if(v[7]<=0 || (v[50]>1 && v[3]!=-1 && v[52]==0))
-	{
+//if(v[7]<=0 || (v[50]>1 && v[3]!=-1 && v[52]==0))
+if(v[7]<=0 )
+	{//don't invest if don't have enough money
   //sprintf(msg, "\n MaxKExpenditureEF<=0 %lf", v[7] ); plog(msg);
- 	END_EQUATION(1);
+ 	END_EQUATION(4);
  	}
 
 v[30]=V("ExcessEnergyL");
@@ -15452,7 +15446,7 @@ else
   V_CHEATS(cur,"PlaceOrderEF", p);
   WRITE("ForcePurchaseKEN", 0);
 	}
-RESULT( 1)
+RESULT( 5)
 
 
 EQUATION("PPKAge")
@@ -19775,7 +19769,10 @@ if(abs(v[0]+v[40]-v[85])/v[0]>0.000001)
 //LOG("%lf\n", v[35]+v[1]-v[87]-v[0]-v[40]+v[60]);
 //BankK + Deposits - Overdraft - Principal 
 if(abs(v[35]+v[1]-v[87]-v[0]-v[40]+v[60] )/v[0]>0.0001)
- INTERACT("Error CFB",v[35]+v[1]-v[87]-v[0]-v[40]+v[60]);
+ {
+  LOG("%lf\n", v[35]+v[1]-v[87]-v[0]-v[40]+v[60]);
+  INTERACT("Error CFB",v[35]+v[1]-v[87]-v[0]-v[40]+v[60]);  
+ } 
 //LOG("%lf\t%lf\t%lf\t%lf\n", v[35],v[1],v[0],v[40]);
  
 
@@ -20283,7 +20280,7 @@ EQUATION("Andre")
 Lorenz curve
 */
 
-v[10]=(double)t;
+v[5]=v[10]=(double)t;
 if(v[10]>1)
  {
   v[5]=v[6]=v[9]=0;

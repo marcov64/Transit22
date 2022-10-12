@@ -444,7 +444,7 @@ CYCLE(cur, "EnergyFirm")
   	  v[34]=V("MinPPKAgeScrapPara");
   		v[35]=(v[98]*v[34]);//sets the earliest age at which capital may break randomly with an increasing chance
 
-  		if(v[4]>0 && (v[5]/v[6]<v[43] || v[4]>v[98] || (v[4]>v[35] && v[32]>v[33]) )) //final condition says capital is scrapped if it is above the min age for scrapping and if a random number is less than the number generated from convex function which increases the older the capital is. functions are calibrated so that overall there is around a 50% chance capital won't reach its potential lifespan, with scarpping more likely the older the capital gets
+  		if(v[4]>0 && (v[2]<v[0] || v[4]>v[98] || (v[4]>v[35] && v[32]>v[33]) )) //final condition says capital is scrapped if it is above the min age for scrapping and if a random number is less than the number generated from convex function which increases the older the capital is. functions are calibrated so that overall there is around a 50% chance capital won't reach its potential lifespan, with scarpping more likely the older the capital gets
   		 {
         if(v[3]>1)
   		   {
@@ -8332,7 +8332,7 @@ v[3] = V("WaitingEF");
 if(v[3]==1)
  {
  //sprintf(msg, "\n EF Waiting %lf", v[0] ); plog(msg);
- 	END_EQUATION(1); //skip the equation if you already placed an order. To be edited to give the possibility to remove a too late order
+ 	END_EQUATION(0); //skip the equation if you already placed an order. To be edited to give the possibility to remove a too late order
  }
 //we are here only if there is no pending order
 
@@ -8343,7 +8343,7 @@ if(v[52]==1 && V("NumPP")>1)
 v[50] = V("TimeDeliveryPP");
 v[51] = V("FrequencyInvEF");
 if(v[0]-v[50]<v[51] && v[52]==0)
-  END_EQUATION(1);
+  END_EQUATION(2);
 WRITE("InvestmentSpendingEF",0); //sprintf(msg, "\n InvestmentDecisionEF(%g)", v[12]); plog(msg);
 v[1]=V("SumMaxEnergyCapacity");
 v[41] = V("OrderedKEN");
@@ -8352,14 +8352,15 @@ v[42] = V("maxCapacityProductionEN");
 if(v[1]+v[41]>v[2]*v[42] && v[3]!=-1 && v[52]==0)
 	{
   //sprintf(msg, "\n MaxKExpenditureEF<=0 %lf", v[7] ); plog(msg);
- 	END_EQUATION(1);
+ 	END_EQUATION(3);
  	}
 v[50]=V("MaxEnergyCapacity");
 v[7] = V("MaxKExpenditureEF");
-if(v[7]<=0 || (v[50]>1 && v[3]!=-1 && v[52]==0))
-	{
+//if(v[7]<=0 || (v[50]>1 && v[3]!=-1 && v[52]==0))
+if(v[7]<=0 )
+	{//don't invest if don't have enough money
   //sprintf(msg, "\n MaxKExpenditureEF<=0 %lf", v[7] ); plog(msg);
- 	END_EQUATION(1);
+ 	END_EQUATION(4);
  	}
 
 v[30]=V("ExcessEnergyL");
@@ -8459,7 +8460,7 @@ else
   V_CHEATS(cur,"PlaceOrderEF", p);
   WRITE("ForcePurchaseKEN", 0);
 	}
-RESULT( 1)
+RESULT( 5)
 
 
 EQUATION("PPKAge")
