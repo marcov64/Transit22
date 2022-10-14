@@ -8,3 +8,5 @@ Open issues:
 3) Transition mechanism and bugs for green capital for EN firms needs to be tested.
 
 October 12th - Fixed issues with EN Capital scrapping and investing
+
+Oct. 14th - Fixed the distribution of profits from the bank to the consumer classes. Crazy energy prices generate troubles. There is also an occasional, and inconsequential, failed control in the K sector.

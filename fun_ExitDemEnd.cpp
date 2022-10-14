@@ -2807,10 +2807,19 @@ v[6] = VL("ExitEF",1);
 v[7] = VL("Exit",1);
 v[50] = V("SumCashInjectionKF");
 v[30] = VL("InterestGovFund",1);
-v[88]=v[8]=v[0]+v[1]+v[30]-v[2]-v[3]-v[4]-v[5]-v[6]-v[7]-v[50];
+v[9] = VL("DistributedProfitsBank",1);
+v[88]=v[8]=v[0]+v[1]+v[30]-v[2]-v[3]-v[4]-v[5]-v[6]-v[7]-v[9]-v[50];
 
 WRITE("Adjustment", 0);
 WRITE("RelAdj", 0);
+
+if(v[8]<0)
+ {//HAIRCUT, reduction of positive bank accounts to finance the loss of central bank
+  INTERACT("Neg. BankCapital", v[8]);
+ }
+END_EQUATION(v[8]);
+/****************************/
+
 if(v[8]<0)
  {//HAIRCUT, reduction of positive bank accounts to finance the loss of central bank
   INTERACT("Neg. BankCapital", v[8]);
@@ -3067,8 +3076,9 @@ v[20]=V("ExcessCostIncome");
 
 v[3] = VL("Subsidies",1);
 v[6] = V("IncomeTax");
+v[7] = VL("BankProfitIncome",1);
 
-v[5]=v[0]+v[1]+v[14]+v[3]-v[16]+v[20]-v[6];
+v[5]=v[0]+v[1]+v[14]+v[3]+v[7]-v[16]+v[20]-v[6];
 
 RESULT(v[5])
 
@@ -5303,7 +5313,7 @@ V("Production");
 v[0]=V("PremiaIncome");
 v[1]=V("WageIncome");
 v[2]=VL("InterestDepositsC",0);
-v[3]=VL("BankProfitIncome",0); // redundant
+v[3]=VL("BankProfitIncome",1); // redundant
 v[4]=VL("OverdraftPaymentC",0);
 v[5]=V("Expenditure");
 v[6]=V("CashC");
@@ -5311,7 +5321,7 @@ v[7]=VL("CashC",1);
 v[9] = V("CashCAdjustment");
 v[8]=v[6]-v[7]+v[9];
 v[18] = V("BalanceC");
-if(abs(v[8]-v[18])/max(abs(v[8]),abs(v[18]))>0.5)
+if(abs(v[8]-v[18])/max(abs(v[8]),abs(v[18]))>0.0001)
   INTERACT("eRR BalanceC",v[18]);
 v[20]=V("ExcessCostIncome");
 
@@ -5319,13 +5329,13 @@ v[23]=V("IncomeTax");
 v[21] = V("Income");
 if(abs((v[18]-(v[21]-v[5]))/abs(v[21]) )>0.5)
  INTERACT("Err Bal.2", v[18]);
-v[22]=v[21]-v[0]-v[1]-v[2]+v[4]-v[20]+v[23];
-if(abs(v[22])/abs(v[21])>0.5)
+v[22]=v[21]-v[0]-v[1]-v[2]-v[3]+v[4]-v[20]+v[23];
+if(abs(v[22])/abs(v[21])>0.0001)
   INTERACT("eRR Income", v[22]);
 
 //v[10]=v[0]+v[1]+v[2]+v[3]-v[4]-v[5]-(v[6]-v[7])+v[20];
 //v[10]=v[0]+v[1]+v[2]+v[3]-v[4]-v[5]-v[8]+v[20]-v[23];
-v[10]=v[0]+v[1]+v[2]-v[4]-v[5]-v[8]+v[20]-v[23];
+v[10]=v[0]+v[1]+v[2]+v[3]-v[4]-v[5]-v[8]+v[20]-v[23];
 
 //v[20]=t; //sprintf(msg, "\n ControlDemand(%g)", v[20]); plog(msg);
 RESULT(v[10])
@@ -5918,8 +5928,9 @@ Check on Bank balance sheet
 v[0]=V("TotalAssets");
 v[1]=V("StatTotalDeposits");
 v[2]=V("BankCapital");
+v[4] = VL("DistributedProfits", 1);
 
-v[3]=v[0]-v[1]-v[2];
+v[3]=v[0]-v[1]-v[2]-v[4];
 //LOG("\n%lf\n%lf\n%lf \t %lf\n\n",v[0],v[1],v[2], v[3]);
 v[40]=v[41]=v[42]=v[43]=v[44]=v[45]=v[46]=v[47]=0;
 CYCLES(THIS->up, cur, "Firm")
@@ -5979,7 +5990,7 @@ EQUATION("BankProfitIncome")
 /*
  */
 V("FinancialTrading");
-v[1]=V("DistributedProfitsBank");
+v[1]=VL("DistributedProfitsBank",1);
 //v[2]=VL("CashC",1);
 //v[3]=VL("SumCashC",1);
 v[4]=VL("ShareIncome",1);
@@ -6056,19 +6067,6 @@ RESULT(v[0] )
 
 
 
-EQUATION("OwnFundsBank")
-/*
-*/
-V("FinancialTrading");
-v[1] = VL("OwnFundsBank",1);
-v[2] = V("RetainedProfitsBank");
-v[3] = V("NonPerformingLoansTotal");
-
-v[0]= v[1]+v[2]-v[3];
-RESULT(v[0] )
-
-
-
 EQUATION("TotalProfitsBank")
 /*
 */
@@ -6111,15 +6109,17 @@ RESULT(v[0] )
 
 EQUATION("DistributedProfitsBank")
 /*
+Profits distributed to households.
+Computed as the current profits minus a fixed return on bank's capital
 */
 V("FinancialTrading");
-//v[1] = V("GDPF");
-//v[2] = V("GDPK");
-v[3] = V("ProfitShareTargetBank"); // parameter
-v[4] = VL("GDPnom",1);
+v[3] = V("TotalProfitsBank"); // parameter
+v[4] = V("FixedReturnOnCapitalBank");
+v[2] = V("BankCapital");
 
+v[1]=v[2]*v[4];
+v[0]=max(0, min(v[3],v[1])); 
 
-v[0] = (v[4]) * v[3];
 RESULT(v[0] )
 
 
@@ -6179,30 +6179,33 @@ EQUATION("InterestRateSpread")
 /*
 */
 V("FinancialTrading");
-v[1] = V("TotalProfitsTargetBank");
-v[2] = V("InterestRateDeposits"); // parameter
-v[3] = VL("StatTotalDeposits",1);
-v[4] = V("ExpectedLoanDefaultsPC"); // parameter
-v[5] = VL("TotalAssets",1);
+v[0] = VL("InterestRateSpread", 1);
+v[1] = V("InterestRateDeposits")/10;//step to change of interest rate
 
-//v[10]=(1-v[4]) * v[5];
-//sprintf(msg, "\n InterestRateSpreadTest(%g)", v[10]); plog(msg);
+v[2] = V("BankCapital");
+v[3] = V("TotalAssets");
 
+v[5]=v[2]/v[3];
+v[4] = V("CapitalAdequacyRatioTargetBank");
 
-v[0] = (v[1] + (v[2] * (v[3] - ( (1-v[4]) * v[5] ) ) ) )  /  ( (1-v[4]) * v[5]);//xxx
-//sprintf(msg, "\n InterestRateSpread(%g)", v[0]); plog(msg);
+v[8]=round(100*(v[4]-v[5]) )/100;
 
+v[7]=v[0];
+if(v[8]>0)
+ v[7]+=v[1];//increase spread if capital is low
+if(v[8]<0)
+ v[7]-=v[1];//decrease spread if capital is high
 
 v[6]=V("MinInterestRateSpread");
-if(v[0]<v[6])
-	v[0]=v[6];
+if(v[7]<v[6])
+	v[7]=v[6];
 
-	v[6]=V("MaxInterestRateSpread");
-if(v[0]>v[6])
-	v[0]=v[6];
+	v[9]=V("MaxInterestRateSpread");
+if(v[7]>v[9])
+	v[7]=v[9];
 
 
-RESULT(v[0] )
+RESULT(v[7] )
 
 
 
@@ -7447,6 +7450,7 @@ else
       WRITELS(cur3,"Consumption",0, t-1);
       WRITELS(cur3,"ShareWageIncome",0, t-1);
       WRITELS(cur3,"SharePremiaIncome",0, t-1);
+      WRITELS(cur3,"BankProfitIncome",0, t-1);
       WRITELS(cur3, "CashC", 0, t-1);
       WRITELS(cur3,"ShareIncome",0, t-1); // reset the share income to be recomputed
       WRITES(cur3,"Individuals",v[20]); // set the number of individuals to nu;ber of workers of the new class
@@ -10211,6 +10215,7 @@ else
       WRITELS(cur3,"Consumption",0, t-1);
       WRITELS(cur3,"ShareWageIncome",0, t-1);
       WRITELS(cur3,"SharePremiaIncome",0, t-1);
+      WRITELS(cur3,"BankProfitIncome",0, t-1);      
       WRITELS(cur3, "CashC", 0, t-1);
       WRITELS(cur3,"ShareIncome",0, t-1); // reset the share income to be recomputed
       WRITES(cur3,"Individuals",v[20]); // set the number of individuals to nu;ber of workers of the new class
@@ -11541,6 +11546,7 @@ else
       WRITELS(cur3,"Consumption",0, t-1);
       WRITELS(cur3,"ShareWageIncome",0, t-1);
       WRITELS(cur3,"SharePremiaIncome",0, t-1);
+      WRITELS(cur3,"BankProfitIncome",0, t-1);
       WRITELS(cur3, "CashC", 0, t-1);
       WRITELS(cur3,"ShareIncome",0, t-1); // reset the share income to be recomputed
       WRITES(cur3,"Individuals",v[20]); // set the number of individuals to nu;ber of workers of the new class
@@ -11988,7 +11994,8 @@ CYCLE(cur1, "Supply")
  {
   CYCLES(cur1, cur, "Firm")
    {
-    v[1]=VS(cur,"price")+VS(cur, "ExtraPrice");
+//    v[1]=VS(cur,"price")+VS(cur, "ExtraPrice");
+    v[1]=VS(cur,"price");
     v[2]=VS(cur,"Ms");
     v[3]+=v[1]*v[2];
    }
@@ -12653,8 +12660,6 @@ EQUATION("CheckFinBalance")
 Comment
 */
 v[0]=v[1]=v[3]=v[4]=v[5]=v[6]=v[7]=v[8]=v[9]=v[10]=v[11]=v[12]=v[13]=v[33]=v[34]=v[40]=0;
-//v[87] = V("Exit");
-v[87]=0;
 CYCLE(cur, "Firm")
  {
   v[4] += VS(cur, "MonetarySales");
@@ -12756,7 +12761,6 @@ v[60] = V("GovernmentFund");
 
 WRITE("TotKFirm", v[33]);
 WRITE("TotKEF", v[34]);
-//v[35] = VL("BankCapital",0);
 v[35] = V("BankCapital");
 
 v[71] = V("TotalDepositsF");
@@ -12780,17 +12784,17 @@ v[85]=v[81]+v[82]+v[83]+v[84];
 if(abs(v[0]+v[40]-v[85])/v[0]>0.000001)
  INTERACT("Wrong Assets CFB",v[0]+v[40]- v[85]);
 
+v[87] = VL("DistributedProfitsBank",1);
 //LOG("%lf\n", v[35]+v[1]-v[87]-v[0]-v[40]+v[60]);
 //BankK + Deposits - Overdraft - Principal 
-if(abs(v[35]+v[1]-v[87]-v[0]-v[40]+v[60] )/v[0]>0.0001)
+if(abs(v[35]+v[1]+v[87]-v[0]-v[40]+v[60] )/v[0]>0.0001)
  {
-  LOG("%lf\n", v[35]+v[1]-v[87]-v[0]-v[40]+v[60]);
-  INTERACT("Error CFB",v[35]+v[1]-v[87]-v[0]-v[40]+v[60]);  
+  LOG("%lf\n", v[35]+v[1]+v[87]-v[0]-v[40]+v[60]);
+  INTERACT("Error CFB",v[35]+v[1]+v[87]-v[0]-v[40]+v[60]);  
  } 
 //LOG("%lf\t%lf\t%lf\t%lf\n", v[35],v[1],v[0],v[40]);
  
-
-RESULT(v[35]+v[1]-v[0]-v[40]+v[60] )
+RESULT(v[35]+v[1]+v[87]-v[0]-v[40]+v[60] )
 
 
 EQUATION("CheckFinBalanceLag")

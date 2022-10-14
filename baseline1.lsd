@@ -701,19 +701,13 @@ Label Root
 				Var: TotalInterestCollected
 				Var: TotalInterestDeposits
 				Var: TotalAssets
-				Var: OwnFundsBank
 				Var: TotalProfitsBank
 				Var: RetainedProfitsBank
 				Var: DistributedProfitsBank
 				Param: ProfitShareTargetBank
-				Var: OwnFundsTargetLRBank
 				Param: CapitalAdequacyRatioTargetBank
-				Var: OwnFundsTargetSRBank
-				Param: OwnFundsParameterBank
-				Var: RetainedProfitsTargetBank
 				Var: TotalOutstandingDebtV
 				Var: ExpectedLoanDefaultsPC
-				Var: TotalProfitsTargetBank
 				Var: InterestRateSpread
 				Var: InterestRate
 				Var: CapitalAdequacyRatio
@@ -744,6 +738,7 @@ Label Root
 				Param: Adjustment
 				Param: RatioAdjGDPm
 				Param: RelAdj
+				Param: FixedReturnOnCapitalBank
 
 			}
 
@@ -1280,7 +1275,7 @@ Object: Stats C	1
 Var: Init_Init 0 n + d n
 Var: Av_Computations 0 n + n n
 Func: CheckFinBalanceLag 0 n + n n
-Func: CheckFinBalance 0 n + n n
+Func: CheckFinBalance 0 n + d n
 Var: GlobalFlows 0 n + n n
 Param: stopPlaceOrder 0 n + n n	10000000
 Param: stopPlaceOrderEF 0 n + n n	1000000000
@@ -1530,7 +1525,7 @@ Param: minShareGovGDP 0 n + n n	0.01
 Param: maxShareGovGDP 0 n + n n	0.9
 Param: shareGovGDP 0 n + n p	0
 Var: InterestGovFund 1 n + n n	0
-Var: GovernmentFund 1 s + d n	0
+Var: GovernmentFund 1 s + n n	0
 Var: GovDemTot 1 s + d n	0
 Var: ENGDP 0 n + n n
 Param: shareGDdown 0 n + n n	0
@@ -1701,7 +1696,7 @@ Param: betaPrice 0 n + n n	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0
 Var: betaProd 0 n + n n
 Param: betaTime 0 n + n n	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2
 Param: numBLI 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-Var: price 1 n + n n	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10
+Var: price 1 s + n n	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10
 Var: ExtraPrice 0 n + n n
 Param: product 0 n + n n	1	1	1	1	1	1	1	1	1	1	2	2	2	2	2	2	2	2	2	2	3	3	3	3	3	3	3	3	3	3	4	4	4	4	4	4	4	4	4	4	5	5	5	5	5	5	5	5	5	5	6	6	6	6	6	6	6	6	6	6	7	7	7	7	7	7	7	7	7	7	8	8	8	8	8	8	8	8	8	8	9	9	9	9	9	9	9	9	9	9	10	10	10	10	10	10	10	10	10	10
 Param: roRD 0 n + n n	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2
@@ -1799,7 +1794,7 @@ Var: RRoK 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	
 Var: DebtFL 0 n + n n
 Var: DebtFCh 0 n + n n
 Param: DistributedProfits 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-Var: CashF 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Var: CashF 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: InterestDepositsF 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: sCashF 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: OverdraftPaymentF 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
@@ -2147,22 +2142,16 @@ Var: TotalOutstandingDebt 1 s + n n	0
 Var: TotalInterestCollected 0 n + n n
 Var: TotalInterestDeposits 0 n + n n
 Var: TotalAssets 1 s + n n	1
-Var: OwnFundsBank 1 n + n n	0
-Var: TotalProfitsBank 0 n + n n
-Var: RetainedProfitsBank 0 n + n n
-Var: DistributedProfitsBank 1 n + n n	0
+Var: TotalProfitsBank 0 s + n n
+Var: RetainedProfitsBank 0 s + n n
+Var: DistributedProfitsBank 1 s + n n	0
 Param: ProfitShareTargetBank 0 n + n n	0.05
-Var: OwnFundsTargetLRBank 0 n + n n
 Param: CapitalAdequacyRatioTargetBank 0 n + n n	0.2
-Var: OwnFundsTargetSRBank 0 n + n n
-Param: OwnFundsParameterBank 0 n + n n	0.01
-Var: RetainedProfitsTargetBank 0 n + n n
 Var: TotalOutstandingDebtV 1 n + n n	0
 Var: ExpectedLoanDefaultsPC 1 n + n n	0
-Var: TotalProfitsTargetBank 0 n + n n
-Var: InterestRateSpread 0 n + n n
+Var: InterestRateSpread 1 n + n n	0.00353624
 Var: InterestRate 1 s + n n	0.01
-Var: CapitalAdequacyRatio 0 n + n n
+Var: CapitalAdequacyRatio 0 s + n n
 Var: BankControlCapital 0 s + n n
 Var: BankControlCurrent 0 s + n n
 Var: BankCapital 1 s + d n	0
@@ -2190,12 +2179,13 @@ Param: NPLF 0 n + n n	0
 Param: Adjustment 0 n + n n	0
 Param: RatioAdjGDPm 0 n + n n	0
 Param: RelAdj 0 n + n n	0
+Param: FixedReturnOnCapitalBank 0 n + n n	0.001
 
 Object: Energy C	1
 Func: CallalphaBrown 0 n + n n
 Func: CallalphaGreen 0 n + n n
 Param: CapitalDestroyedEF 0 n + n n	0
-Param: CopyTotalEnergy 0 n + n n	1506000000
+Param: CopyTotalEnergy 0 s + n n	1506000000
 Var: DemographyEN 0 n + n n
 Func: EntryEF 0 n + n n
 Param: ExcessEnergy 0 s + n n	0
@@ -2225,7 +2215,7 @@ Var: NbrEF 0 s + n n
 Param: NbrGreen 0 n + n n	0
 Var: NbrPP 0 s + n n
 Param: OverCostMarkup 0 n + n n	0
-Var: PriceEN 1 s + d n	8.134
+Var: PriceEN 1 s + n n	8.134
 Var: PriceENMA 1 n + n n	8.134
 Param: ShareBrownEnergy 0 s + n n	0
 Param: ShareGreenEnergy 0 n + n n	0
@@ -2243,10 +2233,10 @@ Var: SumInterestPaymentEF 0 n + n n
 Var: SumInvestmentEF 0 s + n n
 Var: SumInvestmentSpendingEF 0 n + n n
 Var: SumLaborCostEF 0 n + n n
-Var: SumMaxEnergyCapacity 0 n + n n
+Var: SumMaxEnergyCapacity 0 s + n n
 Var: SumOutstandingDebtEFCh 0 n + n n
 Var: SumOverdraftPaymentEF 0 n + n n
-Var: SumTotNumWorkersEF 0 n + n n
+Var: SumTotNumWorkersEF 0 s + n n
 Var: SumWagePremEF 0 s + n n
 Var: SumWaitingEF 0 n + n n
 Param: ThresholdCapacityEF 0 n + n n	0.9
@@ -2276,7 +2266,7 @@ Param: minSize 0 n + n n	0.005
 Var: FairEnergy 0 n + n n
 Param: shareFairEnergy 0 n + n n	0.1
 Var: MarketEnergyCapacity 0 n + n n
-Param: ExitFlagEF 0 n + n n	1
+Param: ExitFlagEF 0 n + n n	0
 Func: PermissionInv 0 n + n n
 Param: smoothPPP 0 n + n n	0
 Var: PercUnusedENCapacity 0 n + n n
@@ -2419,7 +2409,7 @@ SIM_NUM 1
 SEED 1
 MAX_STEP 5000 1 0 0 0 0 0 0
 EQUATION fun_ExitDemEnd.cpp
-MODELREPORT report_Sim1.html
+MODELREPORT report_baseline1.html
 
 DESCRIPTION
 
@@ -5191,6 +5181,8 @@ END_DESCRIPTION
 
 Parameter_KExtraCapacity
 (no description available )
+_INIT_
+All 1 instances equal to 2
 END_DESCRIPTION
 
 Variable_SumTaxK
@@ -5883,10 +5875,6 @@ Variable_TotalAssets
 (no description available )
 END_DESCRIPTION
 
-Variable_OwnFundsBank
-(no description available )
-END_DESCRIPTION
-
 Variable_TotalProfitsBank
 (no description available )
 END_DESCRIPTION
@@ -5903,23 +5891,7 @@ Parameter_ProfitShareTargetBank
 (no description available )
 END_DESCRIPTION
 
-Variable_OwnFundsTargetLRBank
-(no description available )
-END_DESCRIPTION
-
 Parameter_CapitalAdequacyRatioTargetBank
-(no description available )
-END_DESCRIPTION
-
-Variable_OwnFundsTargetSRBank
-(no description available )
-END_DESCRIPTION
-
-Parameter_OwnFundsParameterBank
-(no description available )
-END_DESCRIPTION
-
-Variable_RetainedProfitsTargetBank
 (no description available )
 END_DESCRIPTION
 
@@ -5931,12 +5903,10 @@ Variable_ExpectedLoanDefaultsPC
 (no description available )
 END_DESCRIPTION
 
-Variable_TotalProfitsTargetBank
-(no description available )
-END_DESCRIPTION
-
 Variable_InterestRateSpread
 (no description available )
+_INIT_
+All 1 instances equal to 0.00353624
 END_DESCRIPTION
 
 Variable_InterestRate
@@ -6057,6 +6027,12 @@ END_DESCRIPTION
 
 Parameter_RelAdj
 (no description available )
+END_DESCRIPTION
+
+Parameter_FixedReturnOnCapitalBank
+
+_INIT_
+All 1 instances equal to 0.001
 END_DESCRIPTION
 
 Object_Energy
@@ -6410,7 +6386,7 @@ END_DESCRIPTION
 Parameter_ExitFlagEF
 (no description available )
 _INIT_
-All 1 instances equal to 1
+All 1 instances equal to 0
 END_DESCRIPTION
 
 Function_PermissionInv
@@ -7430,7 +7406,7 @@ CYCLE(cur, "EnergyFirm")
   	  v[34]=V("MinPPKAgeScrapPara");
   		v[35]=(v[98]*v[34]);//sets the earliest age at which capital may break randomly with an increasing chance
 
-  		if(v[4]>0 && (v[5]/v[6]<v[43] || v[4]>v[98] || (v[4]>v[35] && v[32]>v[33]) )) //final condition says capital is scrapped if it is above the min age for scrapping and if a random number is less than the number generated from convex function which increases the older the capital is. functions are calibrated so that overall there is around a 50% chance capital won't reach its potential lifespan, with scarpping more likely the older the capital gets
+  		if(v[4]>0 && (v[2]<v[0] || v[4]>v[98] || (v[4]>v[35] && v[32]>v[33]) )) //final condition says capital is scrapped if it is above the min age for scrapping and if a random number is less than the number generated from convex function which increases the older the capital is. functions are calibrated so that overall there is around a 50% chance capital won't reach its potential lifespan, with scarpping more likely the older the capital gets
   		 {
         if(v[3]>1)
   		   {
@@ -7511,7 +7487,7 @@ v[30]=0;
 
 v[0]=V("KQ"); //production capacity of the firm
 v[98] = V("KRatioVacancies");
-if(v[98]>0)
+if(v[98]>1)
  {
   v[99] = V("KExtraCapacity");
   v[97]=min(v[98]+1,v[99]);
@@ -9793,10 +9769,19 @@ v[6] = VL("ExitEF",1);
 v[7] = VL("Exit",1);
 v[50] = V("SumCashInjectionKF");
 v[30] = VL("InterestGovFund",1);
-v[88]=v[8]=v[0]+v[1]+v[30]-v[2]-v[3]-v[4]-v[5]-v[6]-v[7]-v[50];
+v[9] = VL("DistributedProfitsBank",1);
+v[88]=v[8]=v[0]+v[1]+v[30]-v[2]-v[3]-v[4]-v[5]-v[6]-v[7]-v[9]-v[50];
 
 WRITE("Adjustment", 0);
 WRITE("RelAdj", 0);
+
+if(v[8]<0)
+ {//HAIRCUT, reduction of positive bank accounts to finance the loss of central bank
+  INTERACT("Neg. BankCapital", v[8]);
+ }
+END_EQUATION(v[8]);
+/****************************/
+
 if(v[8]<0)
  {//HAIRCUT, reduction of positive bank accounts to finance the loss of central bank
   INTERACT("Neg. BankCapital", v[8]);
@@ -10053,8 +10038,9 @@ v[20]=V("ExcessCostIncome");
 
 v[3] = VL("Subsidies",1);
 v[6] = V("IncomeTax");
+v[7] = VL("BankProfitIncome",1);
 
-v[5]=v[0]+v[1]+v[14]+v[3]-v[16]+v[20]-v[6];
+v[5]=v[0]+v[1]+v[14]+v[3]+v[7]-v[16]+v[20]-v[6];
 
 RESULT(v[5])
 
@@ -12289,7 +12275,7 @@ V("Production");
 v[0]=V("PremiaIncome");
 v[1]=V("WageIncome");
 v[2]=VL("InterestDepositsC",0);
-v[3]=VL("BankProfitIncome",0); // redundant
+v[3]=VL("BankProfitIncome",1); // redundant
 v[4]=VL("OverdraftPaymentC",0);
 v[5]=V("Expenditure");
 v[6]=V("CashC");
@@ -12297,7 +12283,7 @@ v[7]=VL("CashC",1);
 v[9] = V("CashCAdjustment");
 v[8]=v[6]-v[7]+v[9];
 v[18] = V("BalanceC");
-if(abs(v[8]-v[18])/max(abs(v[8]),abs(v[18]))>0.5)
+if(abs(v[8]-v[18])/max(abs(v[8]),abs(v[18]))>0.0001)
   INTERACT("eRR BalanceC",v[18]);
 v[20]=V("ExcessCostIncome");
 
@@ -12305,13 +12291,13 @@ v[23]=V("IncomeTax");
 v[21] = V("Income");
 if(abs((v[18]-(v[21]-v[5]))/abs(v[21]) )>0.5)
  INTERACT("Err Bal.2", v[18]);
-v[22]=v[21]-v[0]-v[1]-v[2]+v[4]-v[20]+v[23];
-if(abs(v[22])/abs(v[21])>0.5)
+v[22]=v[21]-v[0]-v[1]-v[2]-v[3]+v[4]-v[20]+v[23];
+if(abs(v[22])/abs(v[21])>0.0001)
   INTERACT("eRR Income", v[22]);
 
 //v[10]=v[0]+v[1]+v[2]+v[3]-v[4]-v[5]-(v[6]-v[7])+v[20];
 //v[10]=v[0]+v[1]+v[2]+v[3]-v[4]-v[5]-v[8]+v[20]-v[23];
-v[10]=v[0]+v[1]+v[2]-v[4]-v[5]-v[8]+v[20]-v[23];
+v[10]=v[0]+v[1]+v[2]+v[3]-v[4]-v[5]-v[8]+v[20]-v[23];
 
 //v[20]=t; //sprintf(msg, "\n ControlDemand(%g)", v[20]); plog(msg);
 RESULT(v[10])
@@ -12904,8 +12890,9 @@ Check on Bank balance sheet
 v[0]=V("TotalAssets");
 v[1]=V("StatTotalDeposits");
 v[2]=V("BankCapital");
+v[4] = VL("DistributedProfits", 1);
 
-v[3]=v[0]-v[1]-v[2];
+v[3]=v[0]-v[1]-v[2]-v[4];
 //LOG("\n%lf\n%lf\n%lf \t %lf\n\n",v[0],v[1],v[2], v[3]);
 v[40]=v[41]=v[42]=v[43]=v[44]=v[45]=v[46]=v[47]=0;
 CYCLES(THIS->up, cur, "Firm")
@@ -12965,7 +12952,7 @@ EQUATION("BankProfitIncome")
 /*
  */
 V("FinancialTrading");
-v[1]=V("DistributedProfitsBank");
+v[1]=VL("DistributedProfitsBank",1);
 //v[2]=VL("CashC",1);
 //v[3]=VL("SumCashC",1);
 v[4]=VL("ShareIncome",1);
@@ -13042,19 +13029,6 @@ RESULT(v[0] )
 
 
 
-EQUATION("OwnFundsBank")
-/*
-*/
-V("FinancialTrading");
-v[1] = VL("OwnFundsBank",1);
-v[2] = V("RetainedProfitsBank");
-v[3] = V("NonPerformingLoansTotal");
-
-v[0]= v[1]+v[2]-v[3];
-RESULT(v[0] )
-
-
-
 EQUATION("TotalProfitsBank")
 /*
 */
@@ -13097,15 +13071,17 @@ RESULT(v[0] )
 
 EQUATION("DistributedProfitsBank")
 /*
+Profits distributed to households.
+Computed as the current profits minus a fixed return on bank's capital
 */
 V("FinancialTrading");
-//v[1] = V("GDPF");
-//v[2] = V("GDPK");
-v[3] = V("ProfitShareTargetBank"); // parameter
-v[4] = VL("GDPnom",1);
+v[3] = V("TotalProfitsBank"); // parameter
+v[4] = V("FixedReturnOnCapitalBank");
+v[2] = V("BankCapital");
 
+v[1]=v[2]*v[4];
+v[0]=max(0, min(v[3],v[1])); 
 
-v[0] = (v[4]) * v[3];
 RESULT(v[0] )
 
 
@@ -13165,30 +13141,33 @@ EQUATION("InterestRateSpread")
 /*
 */
 V("FinancialTrading");
-v[1] = V("TotalProfitsTargetBank");
-v[2] = V("InterestRateDeposits"); // parameter
-v[3] = VL("StatTotalDeposits",1);
-v[4] = V("ExpectedLoanDefaultsPC"); // parameter
-v[5] = VL("TotalAssets",1);
+v[0] = VL("InterestRateSpread", 1);
+v[1] = V("InterestRateDeposits")/10;//step to change of interest rate
 
-//v[10]=(1-v[4]) * v[5];
-//sprintf(msg, "\n InterestRateSpreadTest(%g)", v[10]); plog(msg);
+v[2] = V("BankCapital");
+v[3] = V("TotalAssets");
 
+v[5]=v[2]/v[3];
+v[4] = V("CapitalAdequacyRatioTargetBank");
 
-v[0] = (v[1] + (v[2] * (v[3] - ( (1-v[4]) * v[5] ) ) ) )  /  ( (1-v[4]) * v[5]);//xxx
-//sprintf(msg, "\n InterestRateSpread(%g)", v[0]); plog(msg);
+v[8]=round(100*(v[4]-v[5]) )/100;
 
+v[7]=v[0];
+if(v[8]>0)
+ v[7]+=v[1];//increase spread if capital is low
+if(v[8]<0)
+ v[7]-=v[1];//decrease spread if capital is high
 
 v[6]=V("MinInterestRateSpread");
-if(v[0]<v[6])
-	v[0]=v[6];
+if(v[7]<v[6])
+	v[7]=v[6];
 
-	v[6]=V("MaxInterestRateSpread");
-if(v[0]>v[6])
-	v[0]=v[6];
+	v[9]=V("MaxInterestRateSpread");
+if(v[7]>v[9])
+	v[7]=v[9];
 
 
-RESULT(v[0] )
+RESULT(v[7] )
 
 
 
@@ -14433,6 +14412,7 @@ else
       WRITELS(cur3,"Consumption",0, t-1);
       WRITELS(cur3,"ShareWageIncome",0, t-1);
       WRITELS(cur3,"SharePremiaIncome",0, t-1);
+      WRITELS(cur3,"BankProfitIncome",0, t-1);
       WRITELS(cur3, "CashC", 0, t-1);
       WRITELS(cur3,"ShareIncome",0, t-1); // reset the share income to be recomputed
       WRITES(cur3,"Individuals",v[20]); // set the number of individuals to nu;ber of workers of the new class
@@ -17197,6 +17177,7 @@ else
       WRITELS(cur3,"Consumption",0, t-1);
       WRITELS(cur3,"ShareWageIncome",0, t-1);
       WRITELS(cur3,"SharePremiaIncome",0, t-1);
+      WRITELS(cur3,"BankProfitIncome",0, t-1);      
       WRITELS(cur3, "CashC", 0, t-1);
       WRITELS(cur3,"ShareIncome",0, t-1); // reset the share income to be recomputed
       WRITES(cur3,"Individuals",v[20]); // set the number of individuals to nu;ber of workers of the new class
@@ -18527,6 +18508,7 @@ else
       WRITELS(cur3,"Consumption",0, t-1);
       WRITELS(cur3,"ShareWageIncome",0, t-1);
       WRITELS(cur3,"SharePremiaIncome",0, t-1);
+      WRITELS(cur3,"BankProfitIncome",0, t-1);
       WRITELS(cur3, "CashC", 0, t-1);
       WRITELS(cur3,"ShareIncome",0, t-1); // reset the share income to be recomputed
       WRITES(cur3,"Individuals",v[20]); // set the number of individuals to nu;ber of workers of the new class
@@ -18974,7 +18956,8 @@ CYCLE(cur1, "Supply")
  {
   CYCLES(cur1, cur, "Firm")
    {
-    v[1]=VS(cur,"price")+VS(cur, "ExtraPrice");
+//    v[1]=VS(cur,"price")+VS(cur, "ExtraPrice");
+    v[1]=VS(cur,"price");
     v[2]=VS(cur,"Ms");
     v[3]+=v[1]*v[2];
    }
@@ -19639,8 +19622,6 @@ EQUATION("CheckFinBalance")
 Comment
 */
 v[0]=v[1]=v[3]=v[4]=v[5]=v[6]=v[7]=v[8]=v[9]=v[10]=v[11]=v[12]=v[13]=v[33]=v[34]=v[40]=0;
-//v[87] = V("Exit");
-v[87]=0;
 CYCLE(cur, "Firm")
  {
   v[4] += VS(cur, "MonetarySales");
@@ -19742,7 +19723,6 @@ v[60] = V("GovernmentFund");
 
 WRITE("TotKFirm", v[33]);
 WRITE("TotKEF", v[34]);
-//v[35] = VL("BankCapital",0);
 v[35] = V("BankCapital");
 
 v[71] = V("TotalDepositsF");
@@ -19766,17 +19746,17 @@ v[85]=v[81]+v[82]+v[83]+v[84];
 if(abs(v[0]+v[40]-v[85])/v[0]>0.000001)
  INTERACT("Wrong Assets CFB",v[0]+v[40]- v[85]);
 
+v[87] = VL("DistributedProfitsBank",1);
 //LOG("%lf\n", v[35]+v[1]-v[87]-v[0]-v[40]+v[60]);
 //BankK + Deposits - Overdraft - Principal 
-if(abs(v[35]+v[1]-v[87]-v[0]-v[40]+v[60] )/v[0]>0.0001)
+if(abs(v[35]+v[1]+v[87]-v[0]-v[40]+v[60] )/v[0]>0.0001)
  {
-  LOG("%lf\n", v[35]+v[1]-v[87]-v[0]-v[40]+v[60]);
-  INTERACT("Error CFB",v[35]+v[1]-v[87]-v[0]-v[40]+v[60]);  
+  LOG("%lf\n", v[35]+v[1]+v[87]-v[0]-v[40]+v[60]);
+  INTERACT("Error CFB",v[35]+v[1]+v[87]-v[0]-v[40]+v[60]);  
  } 
 //LOG("%lf\t%lf\t%lf\t%lf\n", v[35],v[1],v[0],v[40]);
  
-
-RESULT(v[35]+v[1]-v[0]-v[40]+v[60] )
+RESULT(v[35]+v[1]+v[87]-v[0]-v[40]+v[60] )
 
 
 EQUATION("CheckFinBalanceLag")
