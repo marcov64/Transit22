@@ -336,11 +336,15 @@ CYCLE(cur, "EnergyFirm")
 {
 	CYCLES(cur, cur1, "CapitalEF")
 	{
-		v[0] = VS(cur1, "KOandMExpenditure");
-		v[1] = VS(cur1, "IdCur");
-		cur2 = SEARCH_CNDS(c, "IdKFirm", v[1]);
-	  cur3=SEARCHS(cur2, "BankK");		
-		INCRS(cur3, "KOandMRevenue", v[0]);
+	  v[4] = VS(cur1, "KENCapacity");
+	  if(v[4]>0)
+	  {
+			v[0] = VS(cur1, "KOandMExpenditure");
+			v[1] = VS(cur1, "IdCur");
+			cur2 = SEARCH_CNDS(c, "IdKFirm", v[1]);
+		  cur3=SEARCHS(cur2, "BankK");		
+			INCRS(cur3, "KOandMRevenue", v[0]);
+		}
 	}
 
 }
@@ -5928,7 +5932,7 @@ Check on Bank balance sheet
 v[0]=V("TotalAssets");
 v[1]=V("StatTotalDeposits");
 v[2]=V("BankCapital");
-v[4] = VL("DistributedProfits", 1);
+v[4] = VL("DistributedProfitsBank", 1);
 
 v[3]=v[0]-v[1]-v[2]-v[4];
 //LOG("\n%lf\n%lf\n%lf \t %lf\n\n",v[0],v[1],v[2], v[3]);
@@ -7309,6 +7313,20 @@ EQUATION("PricePP")
 Price computed as the markup on the cost of unit of energy
 for this capital unit
 */
+
+
+v[3]=VS(p->hook,"LaborCostEF");
+v[4]=VS(p->hook,"OverdraftPaymentEF");/**/
+v[6] = VS(p->hook,"InterestDepositsEF");/**/
+v[9]=VS(p->hook,"CapitalPaymentEF");
+v[10]=VS(p->hook,"InterestPaymentEF");/**/
+v[11]=VS(p->hook,"SumKOandMExpenditure");
+
+v[12] = V("MaxEnergyCapacity");
+v[13] = VS(p->hook,"markupEF");
+
+v[14]=v[13]*(v[3]+v[4]+v[6]+v[9]+v[10]+v[11])/v[12];
+END_EQUATION(v[14]);
 
 v[0] = VS(p->hook,"LaborCostEF");
 v[1] = VS(p->hook,"markupEF");
