@@ -40,8 +40,10 @@ v[1] = V("SumCapitalPaymentF");
 v[2] = V("SumOutstandingDebtEFCh");
 v[3] = V("SumOutstandingDebtFCh");
 v[4] = V("SumKRevenues");
+v[6] = V("SumScrappedPrincipal");
 
-v[5]=v[4]-v[3]-v[2]-v[1]-v[0];
+v[5]=v[4]-v[3]-v[2]-v[1]-v[0]-v[6];
+
 if( t>1 && v[4]!=0&& abs(v[5]/v[4])>0.00001)
 	INTERACT("Err. CheckCapitalStock", v[5]);
 RESULT(v[5] )
@@ -321,7 +323,9 @@ Comment
 v[0]=0;
 CYCLE(cur, "CapitalEF")
 	{
-	v[0]+=VS(cur, "KOandMExpenditure");
+	v[2] = VS(cur, "KENCapacity");
+	if(v[2]>0)
+  	v[0]+=VS(cur, "KOandMExpenditure");
 	}
 
 RESULT(v[0] )
@@ -411,7 +415,7 @@ v[30] = V("TimeRepaymentEF");
 v[21]=v[60]=0;
 v[43] = V("minShareKEN");
 WRITE("SumScrappedCapitalEN", 0);
-
+v[44]=0;
 CYCLE(cur, "EnergyFirm")
 {
 	v[10]=VS(cur,"EFType");
@@ -486,6 +490,7 @@ CYCLE(cur, "EnergyFirm")
   			  v[21]+=v[20];
   		    v[1]=1;
   		    INCRS(cur, "PPremoved", v[20]);
+  		    v[44]+=v[20];
   		   } //end of control on NumPP > 1
   		  else
   		  {
@@ -497,6 +502,7 @@ CYCLE(cur, "EnergyFirm")
   	}  
   
 WRITE("SumScrappedCapitalEN", v[60]);
+WRITE("SumScrappedPrincipal", v[44]);
 cur1=SEARCHS(p->up,"Energy");
 v[4]=V("probEntryEF");
 v[40] = V("minTimeEntryEF");
@@ -7314,38 +7320,18 @@ Price computed as the markup on the cost of unit of energy
 for this capital unit
 */
 
+v[0] = VS(p->hook, "shareLaborKEN");
+v[1]=VS(p->hook,"LaborCostEF");
+v[2] = VS(p->hook,"markupEF");
+v[3] = VS(p->hook, "KENCapacity");
 
-v[3]=VS(p->hook,"LaborCostEF");
-v[4]=VS(p->hook,"OverdraftPaymentEF");/**/
-v[6] = VS(p->hook,"InterestDepositsEF");/**/
-v[9]=VS(p->hook,"CapitalPaymentEF");
-v[10]=VS(p->hook,"InterestPaymentEF");/**/
+v[4]=v[0]*v[1]/v[3];
+v[5]=v[4]*v[2];
+END_EQUATION(v[5])
+
 v[11]=VS(p->hook,"SumKOandMExpenditure");
 
 v[12] = V("MaxEnergyCapacity");
-v[13] = VS(p->hook,"markupEF");
-
-v[14]=v[13]*(v[3]+v[4]+v[6]+v[9]+v[10]+v[11])/v[12];
-END_EQUATION(v[14]);
-
-v[0] = VS(p->hook,"LaborCostEF");
-v[1] = VS(p->hook,"markupEF");
-v[3] = VS(p->hook,"sCapitalCostEF");
-v[5] = VS(p->hook, "RequiredWorkersEF");
-v[6] = VS(p->hook,"KENCapacity");
-v[7] = VS(p->hook,"KENProductivity");
-
-v[10] = VS(p->hook, "MaxEnergyCapacity");
-
-if(v[5]==0 || v[10]==0 || v[6]==0)
- INTERACT("Err PPP", v[5]);
-v[8]= ((v[6]/v[7])/v[5])*v[0];//labor costs for this plant
-v[9]= v[3]*v[6]/v[10]; //capital costs for this plant
-v[4]=v[1]*(v[8]+v[9])/v[6];
-
-
-v[20] = VS(p->hook,"UnitCostKEN");
-v[21]=v[20]*v[1];
 
 v[11]=VL("PricePP",1);
 v[12] = V("smoothPPP");
@@ -7614,7 +7600,21 @@ if(v[5]>0.01)
 	v[6]=(v[3]*v[4])/v[5]; // compute the energy cost to produce one final good using lagged values
  }
 else
-	v[6]=0;
+	{//you need an estimate of EN cost even when producing nihil
+	 v[0]=0;
+   v[1]=0;
+   
+   CYCLE(cur, "Capital")
+    {
+     v[15]=VS(cur,"IncEfficiency");
+     v[8] = VS(cur, "IncProductivity");
+     v[7]=VS(cur,"FDKCapacity");//computes the actual stock of this capital vintage that can be used
+     v[9]=v[7]*v[8]; //max production with this capital vintage
+     v[0]+=v[9]/v[15];//energy consumed by this vintage
+     v[1]+=v[9]; 
+    }
+   v[6]=v[0]*v[4]/v[9]; 
+	}
 
 RESULT(v[6] )
 
@@ -7689,15 +7689,18 @@ v[1]=V("KUnitEnergyCost");
 //v[7]=(v[0])*(v[4]/v[8]+v[1]);
 v[7]=(v[0])*(v[4]/v[8]);
 
+/**********************
 v[9] = V("KRatioVacancies");
 v[10] = V("KPriceOverCharge");
 v[19]=max(v[9],10);
 v[8]=v[19]*v[10];
 v[17]=v[7]*(1+v[8]);
+***********************/
+
 if(v[7]<=0)
 	INTERACT("Neg.KPrice",v[7]);
 
-RESULT(v[17] )
+RESULT(v[7] )
 
 
 EQUATION("TotEN")
@@ -7781,7 +7784,7 @@ v[10]=0;
 //if(V("IdFirm")==895)
  //INTERACT("Merde 3", v[0]);
 
-v[40] = V("CapitalLife");
+v[40] = round(V("CapitalLife")*(1+RND*0.4) );
 v[41] = V("CapitalProdEndLife");
 v[42]=(1-v[41])/v[40];
 
@@ -11502,12 +11505,13 @@ if(v[14]==1)
   v[6]=v[0]*v[5]+(1-v[5])*v[3];
 	v[26] = VL("UnemploymentRate", 1);
   v[28]=v[6]-v[0];
+  /*
   if(v[28]>0)
    {
     v[28]*=v[26];
     v[6]=v[0]+v[28];
    }
-
+  */
   v[33]=v[3]>v[6]?v[3]-v[6]:0;
   v[54]=v[33]/v[6];
   WRITES(p->up,"KVacancies",v[33]);

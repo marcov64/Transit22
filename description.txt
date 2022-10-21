@@ -10,3 +10,14 @@ Open issues:
 October 12th - Fixed issues with EN Capital scrapping and investing
 
 Oct. 14th - Fixed the distribution of profits from the bank to the consumer classes. Crazy energy prices generate troubles. There is also an occasional, and inconsequential, failed control in the K sector.
+
+Oct. 21st
+1. Fixed "CheckCapitalStock" including scrapped principal avoid false check error
+2. Rearranged "KOandMExpenditure" computation. For just purchased capitalEF it needs not to be computed as revenues for KFirm or expenses for ENFirms 
+3. The bid price of EN firms is a mess. Including too many items makes it highly susceptible to feedbacks loops, frequently meaningless. For the time being it is computed as a (high) markup on labor cost of the capital unit. In future it may include also operating and maintainance?
+4. in "UnitEnergyCost" the cost of energy dropped to 0 in case of no production (occasionally it happens because of extra stocks). The result is that the price dropped drammatically. Fixed to compute the energy cost on the basis of capital efficiency.
+5. KPrice simplified, removed effects of vacancies.
+6. Introduced some random noise in "CapitalStock" in order to avoid artificial coordination in timing of capital replacement among FD firms.
+7. In "KNbrWorkers" removed the constraint in hiring due to shortage in labor market. The previous constraint was extreme, fixing the actual hiring to be the desired level times the unemployment rate, which can be as low as 0,001.
+
+
