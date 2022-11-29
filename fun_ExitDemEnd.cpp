@@ -51,7 +51,7 @@ RESULT(v[5] )
 
 EQUATION("MegaCheckGov")
 /*
-Check flows and stocks of gov
+Check flows and stocks of gov. TO BE COMPLETED
 */
 
 v[0] = V("GovernmentFund");
@@ -3019,7 +3019,8 @@ EQUATION("InterestGovFund")
 Interest paid on gov. debt
 */
 v[0] = V("GovernmentFund");
-v[1] = V("InterestRate");
+v[3] = V("shareInterestGov");
+v[1] = V("InterestRate")*v[3];
 v[2]=-v[1]*v[0];
 RESULT(v[2] )
 
@@ -3042,7 +3043,7 @@ v[2] = V("SumTaxK");
 v[3] = V("SumTaxEF");
 v[4] = V("GovernmentExpenses");
 v[6] = VL("InterestGovFund",1);
-v[7] = VL("IncomeTaxTot",1);
+v[7] = VL("IncomeTaxTot",0);
 v[8] = VL("GovDemTot",1);
 
 v[9] = VL("BankCapital",1);
@@ -9482,7 +9483,7 @@ v[5] = VL("GovernmentFund",1);
 v[10] = V("UnemploymentRate");
 
 v[7]=-v[5]/v[3]; //ratio debt/gdp
-if(v[7]>2)
+if(v[7]>2000)
  {WRITE("shareGovGDP", v[4]/v[2]);
   END_EQUATION(v[4]);
  }
@@ -9495,7 +9496,7 @@ if(v[10]>0.05)
  }
  
 WRITE("shareGovGDP", v[4]/v[2]);
-RESULT(v[6])
+RESULT(v[4])
 
 
 EQUATION("GovDemTotXXX")
@@ -12911,7 +12912,7 @@ if(abs(v[0]+v[40]-v[85])/v[0]>0.000001)
 
 v[87] = VL("DistributedProfitsBank",1);
 //LOG("%lf\n", v[35]+v[1]-v[87]-v[0]-v[40]+v[60]);
-//BankK + Deposits - Overdraft - Principal + Gov.Fund - NonPerformingLoans
+//BankK + Deposits + DistributedProfitBank - Overdraft - Principal + Gov.Fund - NonPerformingLoans
 if(abs(v[35]+v[1]+v[87]-v[0]-v[40]+v[60]-v[86] )/v[0]>0.0001)
  {
   LOG("%lf\n", v[35]+v[1]+v[87]-v[0]-v[40]+v[60]-v[86]);
