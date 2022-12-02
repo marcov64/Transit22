@@ -7838,6 +7838,7 @@ CYCLE_SAFE(cur, "Capital")
       if(v[7]>0 || v[8]>0)
        INTERACTS(cur, "Scraping unpaid capital",v[0]);
       DELETE(cur);
+      v[50] = INCR("NumK", -1);
      }
  }
 
@@ -9011,6 +9012,7 @@ CYCLE_SAFE(cur, "Firm")
  {
   v[6]=VS(cur,"Waiting");
   v[16]=VS(cur,"Age");
+  v[50] = VS(cur, "DesiredQ");
   if(v[16]>v[18]) //don't kill too young firms
    {
     v[2]=VS(cur->hook,"minHealth");
@@ -9025,8 +9027,10 @@ CYCLE_SAFE(cur, "Firm")
     v[27] = VS(cur, "CashF");
     v[28] = VS(cur, "KAge"); //is in K, but it is relevant only of there is 1 single K and it is too old
     v[29] = V("CapitalLife");
-    if((v[17]<v[19] && v[27]<0 && VS(cur->hook->up,"NFirmsS")>1)||v[28]>v[29])
+    if((v[17]<v[19] && v[27]<0 && VS(cur->hook->up,"NFirmsS")>1)||v[28]>v[29]||v[50]==0)
      {
+      if(v[50]==0 && V("ExitFlag")==1)
+        INTERACTS(cur, "Exit: DesiredQ", v[50]);
        if(v[6]==1)
         {//firm is waiting an order, to be removed
          v[30] = VS(cur, "IdFirm");

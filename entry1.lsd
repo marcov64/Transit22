@@ -1596,7 +1596,7 @@ Var: SumLaborCost 0 s + n n
 Var: SumInvestment 0 s + n n
 Var: TotEN2 0 n + n n
 Var: TotStocks 0 n + n n
-Var: SumRevenues 0 n + n n
+Var: SumRevenues 0 s + n n
 Var: SumBacklogSales 0 n + n n
 Var: SumBacklogCh 0 n + n n
 Var: SumBacklogValueCh 0 n + n n
@@ -1620,8 +1620,8 @@ Param: LTGDP 1 n + n n	0
 Param: aLTGDP 0 n + n n	0.95
 Param: aLTProfit 0 n + n n	0.95
 Param: RatioProfitGDP 1 n + n n	0
-Param: minMarkup 0 n + n n	2
-Param: maxMarkup 0 n + n n	2
+Param: minMarkup 0 n + n n	1.7
+Param: maxMarkup 0 n + n n	1.7
 Param: LTTotProfit 1 n + n n	0
 Var: SumTaxF 0 s + n n
 Param: aMarkupFD 0 n + n n	0.99
@@ -1645,7 +1645,7 @@ Param: RemovedOverDraftF 0 n + n n	0
 Param: RemovedAssetsF 0 n + n n	0
 Param: RemovedDepositsF 0 n + n n	0
 Var: RemovedOverDraftFval 1 n + n n	0
-Param: shiftExPrice 0 n + n n	0.8
+Param: shiftExPrice 0 n + n n	0
 
 Object: Firm C	100
 Var: PayOvertime 0 n + n n
@@ -1711,8 +1711,8 @@ Param: betaPrice 0 n + n n	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0
 Var: betaProd 0 n + n n
 Param: betaTime 0 n + n n	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2
 Param: numBLI 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-Var: price 1 n + n n	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10
-Var: ExtraPrice 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Var: price 1 s + n n	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10
+Var: ExtraPrice 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Param: product 0 n + n n	1	1	1	1	1	1	1	1	1	1	2	2	2	2	2	2	2	2	2	2	3	3	3	3	3	3	3	3	3	3	4	4	4	4	4	4	4	4	4	4	5	5	5	5	5	5	5	5	5	5	6	6	6	6	6	6	6	6	6	6	7	7	7	7	7	7	7	7	7	7	8	8	8	8	8	8	8	8	8	8	9	9	9	9	9	9	9	9	9	9	10	10	10	10	10	10	10	10	10	10
 Param: roRD 0 n + n n	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2
 Var: smoothMonSales 1 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
@@ -1799,7 +1799,7 @@ Param: blQ 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Param: blPrice 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 
 Object: BankF C	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
-Var: BalanceF 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Var: BalanceF 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Param: DebtF 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: KPresentValue 0 n + n n
 Var: NetWorth 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
@@ -2306,7 +2306,7 @@ Var: TotalOutstandingDebtEF 1 n + n n	0
 Var: TotalInterestPaymentEF 0 n + n n
 Var: SumCapitalPaymentEF 0 n + n n
 Var: SumSumKOandMExpenditure 0 n + n n
-Var: SumRevenuesEF 0 n + n n
+Var: SumRevenuesEF 0 s + n n
 Var: SumTotAssetsEF 1 n + n n	0
 Param: NoExitEF 0 n + n n	1
 Param: SumScrappedCapitalEN 0 s + n n	0
@@ -2423,7 +2423,7 @@ Var: PricePPDoped 0 n + n n
 
 SIM_NUM 1
 SEED 1
-MAX_STEP 5000
+MAX_STEP 5000 471 0 0 0 0 0 0
 EQUATION fun_ExitDemEnd.cpp
 MODELREPORT report_baseline1.html
 
@@ -3837,10 +3837,14 @@ END_DESCRIPTION
 
 Parameter_minMarkup
 (no description available )
+_INIT_
+All 1 instances equal to 1.7
 END_DESCRIPTION
 
 Parameter_maxMarkup
 (no description available )
+_INIT_
+All 1 instances equal to 1.7
 END_DESCRIPTION
 
 Parameter_LTTotProfit
@@ -3956,7 +3960,7 @@ END_DESCRIPTION
 Parameter_shiftExPrice
 
 _INIT_
-All 1 instances equal to 0.8
+All 1 instances equal to 0
 END_DESCRIPTION
 
 Object_Firm
@@ -14868,6 +14872,7 @@ CYCLE_SAFE(cur, "Capital")
       if(v[7]>0 || v[8]>0)
        INTERACTS(cur, "Scraping unpaid capital",v[0]);
       DELETE(cur);
+      v[50] = INCR("NumK", -1);
      }
  }
 
@@ -16041,6 +16046,7 @@ CYCLE_SAFE(cur, "Firm")
  {
   v[6]=VS(cur,"Waiting");
   v[16]=VS(cur,"Age");
+  v[50] = VS(cur, "DesiredQ");
   if(v[16]>v[18]) //don't kill too young firms
    {
     v[2]=VS(cur->hook,"minHealth");
@@ -16055,8 +16061,10 @@ CYCLE_SAFE(cur, "Firm")
     v[27] = VS(cur, "CashF");
     v[28] = VS(cur, "KAge"); //is in K, but it is relevant only of there is 1 single K and it is too old
     v[29] = V("CapitalLife");
-    if((v[17]<v[19] && v[27]<0 && VS(cur->hook->up,"NFirmsS")>1)||v[28]>v[29])
+    if((v[17]<v[19] && v[27]<0 && VS(cur->hook->up,"NFirmsS")>1)||v[28]>v[29]||v[50]==0)
      {
+      if(v[50]==0 && V("ExitFlag")==1)
+        INTERACTS(cur, "Exit: DesiredQ", v[50]);
        if(v[6]==1)
         {//firm is waiting an order, to be removed
          v[30] = VS(cur, "IdFirm");
