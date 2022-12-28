@@ -223,6 +223,7 @@ Label Root
 					Var: TotAssetsFCh
 					Var: DistributedExcessCash
 					Param: ScrappedCapital
+					Var: Windfall
 
 				}
 
@@ -315,6 +316,8 @@ Label Root
 				Param: RemovedDepositsF
 				Var: RemovedOverDraftFval
 				Param: shiftExPrice
+				Var: SumWindfall
+				Param: RatioWindfall
 
 			}
 
@@ -398,6 +401,7 @@ Label Root
 					Var: GovDemHH
 					Param: appRE
 					Param: RatioExpCash
+					Var: ReliableIncome
 
 				}
 
@@ -1227,6 +1231,8 @@ Label Root
 			Param: NoExit
 			Param: increaseGovDemTot
 			Param: shareInterestGov
+			Param: KGDPsmooth
+			Param: KGDPspike
 
 		}
 
@@ -1329,7 +1335,7 @@ Var: AvMarkup 0 n + n n
 Var: AvMaxLProd 0 n + n n
 Param: AvMkup 0 n + n n	-1
 Var: AvPrice 1 s + n n	-1
-Var: AvExtraPrice 0 s + n n
+Var: AvExtraPrice 1 s + n n	0
 Param: AvProfit 0 n + n n	-1
 Param: AvRatioVacancies 0 n + n n	-1
 Var: AvWagecoeff 0 n + n n
@@ -1368,7 +1374,7 @@ Param: InitMinWage 0 n + n n	10
 Var: Init_x 0 n + n n
 Var: InvSalesRatio 0 n + n n
 Param: InventGrowth 0 n + n n	0
-Param: InvestmentGdpRatio 0 n + n n	-1
+Param: InvestmentGdpRatio 0 s + n n	-1
 Param: JobLoss 0 n + n n	0
 Param: KaNW 0 n + n n	0.1
 Var: LTUnemployment 1 s + n n	-1
@@ -1456,7 +1462,7 @@ Param: zero 0 n + n n	0
 Param: EnergyGdpRatio 0 n + n n	0.05369
 Var: MinWageGr 0 n + n n
 Param: ExtraCapacity 0 n + n n	1.2
-Param: minVisibility 0 n + n n	0.8
+Param: minVisibility 0 n + n n	0.5
 Param: MaxQGrowth 0 n + n n	10
 Var: ControlPremiaIncome 0 n + n n
 Var: ControlLaborCost 0 s + n n
@@ -1468,7 +1474,7 @@ Var: MinWageMAGr 1 n + n n	0
 Var: PriceENMAGr 1 n + n n	0
 Var: ControlShareENPP 0 n + n n
 Param: roPremia 0 n + n n	0.45
-Param: roCash 0 n + n n	0.005
+Param: roCash 0 n + n n	0.001
 Var: test 0 n + n n
 Param: maxMinWageGr 0 n + n n	0.01
 Param: FreezeEmployment 0 n + n n	0
@@ -1555,6 +1561,8 @@ Param: ReturnExtraExpenses 0 n + n n	0
 Param: NoExit 0 n + n n	0
 Param: increaseGovDemTot 0 n + n n	1.005
 Param: shareInterestGov 0 n + n n	0.8
+Param: KGDPsmooth 0 s + n n	0
+Param: KGDPspike 0 s + n n	0
 
 Object: Supply C	1
 Param: aES 0 n + n n	0.9
@@ -1646,12 +1654,14 @@ Param: RemovedAssetsF 0 n + n n	0
 Param: RemovedDepositsF 0 n + n n	0
 Var: RemovedOverDraftFval 1 n + n n	0
 Param: shiftExPrice 0 n + n n	0
+Var: SumWindfall 0 s + n n
+Param: RatioWindfall 0 s + n n	0
 
 Object: Firm C	100
-Var: PayOvertime 0 n + n n
+Var: PayOvertime 0 s + n n
 Var: Age 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-Var: AvWage 0 n + n n
-Param: CapitalCapacity 0 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
+Var: AvWage 0 s + n n
+Param: CapitalCapacity 0 s + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
 Var: CapitalStock 1 n + n n	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
 Param: ConstPrice 0 n + n n	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100
 Var: DesiredQ 0 s + n n
@@ -1667,24 +1677,24 @@ Param: IdFirm 0 n + n n	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22
 Param: IdTech 0 n + n n	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
 Var: InvestmentDecision 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: KapitalNeed 0 n + n n
-Var: LaborCapacity 1 n + n n	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100
+Var: LaborCapacity 1 s + n n	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100
 Var: LaborCost 0 s + n n
-Param: LaborForce 0 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
+Param: LaborForce 0 s + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
 Param: LaborForceL 0 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
-Param: LaborGrowth 0 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
-Var: MaxLaborProductivity 1 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
+Param: LaborGrowth 0 s + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
+Var: MaxLaborProductivity 1 s + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
 Param: MonetarySales 0 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
 Param: MonetarySalesL 0 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
 Param: tMonSales 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: MovAvExpSales 1 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
 Var: MovAvProfit 1 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
-Var: Ms 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-Param: MsSector 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Var: Ms 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Param: MsSector 0 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Param: NumK 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: ProdInno 0 n + n n
 Param: ProdShockP 0 n + n n	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1
 Var: Profit 1 s + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
-Var: Q 1 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
+Var: Q 1 s + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
 Param: RatioVacancies 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Param: RationingRatioFirm 0 n + n n	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
 Var: RdExpenditure 0 n + n n
@@ -1692,11 +1702,11 @@ Var: Revenues 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	
 Var: SmoothProfit 1 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
 Var: Stocks 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: UnitDemand 1 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
-Var: UnitEnergyCost 0 n + n n
-Var: UnitLaborCost 0 n + n n
+Var: UnitEnergyCost 0 s + n n
+Var: UnitLaborCost 0 s + n n
 Var: UnitSales 1 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
 Param: Vacancies 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-Var: Visibility 1 n + n n	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+Var: Visibility 1 s + n n	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
 Var: WagePrem 0 n + n n
 Param: Waiting 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Param: aExpSales 0 n + n n	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05	0.05
@@ -1741,7 +1751,7 @@ Var: OutstandingDebtFCh 0 n + n n
 Var: ControlRevenues 0 n + n n
 Param: flagNewEntrant 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: VacanciesRatio 0 n + n n
-Var: UtilisationRate 0 n + n n
+Var: UtilisationRate 0 s + n n
 Var: GOS 0 n + n n
 Var: GOSShare 0 n + n n
 Var: UnitELdiff 0 n + n n
@@ -1761,6 +1771,7 @@ Var: TotAssetsF 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	
 Var: TotAssetsFCh 0 n + n n
 Var: DistributedExcessCash 0 n + n n
 Param: ScrappedCapital 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Var: Windfall 0 s + n n
 
 Object: PNeed C	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
 Param: IdPNeed 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
@@ -1805,7 +1816,7 @@ Var: KPresentValue 0 n + n n
 Var: NetWorth 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: BacklogValue 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: sBalanceF 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-Var: RRoK 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Var: RRoK 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: DebtFL 0 n + n n
 Var: DebtFCh 0 n + n n
 Var: CashF 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
@@ -1834,21 +1845,21 @@ Param: HerfWageIncome 0 n + n n	-1
 Param: HerfNonWageIncome 0 n + n n	-1
 Param: eta 0 n + n n	0.4
 Var: PayTime 0 n + n n
-Var: TotWage 0 n + n n
-Var: TotPremia 0 n + n n
+Var: TotWage 0 s + n n
+Var: TotPremia 0 s + n n
 Var: TotIncome 0 s + n n
 Var: TotIndividuals 0 s + n n
 Var: Atkinson 0 n + n n
 Var: AvIncome 0 n + n n
 Var: TotIncomeCapita 0 n + n n
-Param: ShareSavingsConsumed 0 n + n n	0.03
+Param: ShareSavingsConsumed 0 s + n n	0.03
 Param: SRMultiplier 0 n + n n	0.85
 Param: TopSavingRate 0 n + n n	0.9
 Param: AtkinsonClass 0 n + n n	1
 Var: TotConsumption 0 n + n n
 Var: MargPropConsume 0 n + n n
 Param: WageIncomeRatio 0 n + n n	-1
-Param: PremiaIncomeRatio 0 n + n n	-1
+Param: PremiaIncomeRatio 0 s + n n	-1
 Var: TopBotInc 0 n + n n
 Var: TopBotEarn 0 n + n n
 Var: GlobalIncome 0 n + n n
@@ -1862,16 +1873,16 @@ Param: ShareIncomeTop01 0 n + n n	0
 Param: ShareIncomeTop10 0 n + n n	0
 Param: ShareIncomeBottom90 0 n + n n	0
 Var: SumPremiaIncome 0 n + n n
-Var: SumExpenditures 0 n + n n
+Var: SumExpenditures 0 s + n n
 Var: SumBalanceC 0 n + n n
 Var: MaxNumClass 0 n + n n
 Var: SumCashC 1 n + n n	0
-Param: aCashC 0 n + n n	0.005
-Var: SumExpenditure 0 n + n n
+Param: aCashC 0 n + n n	0.1
+Var: SumExpenditure 0 s + n n
 Var: SumInterestDepositsC 0 n + n n
 Var: SumOverdraftPaymentC 0 n + n n
 Var: SumCashCCh 0 n + n n
-Param: brakeExpenditure 0 n + n n	0.999
+Param: brakeExpenditure 0 n + n n	0.95
 Var: IncomeTaxTot 1 s + d n	0
 Var: SumOverdraftC 1 n + n n	0
 Param: IncomeTaxShare 0 n + n n	0.1
@@ -1879,11 +1890,11 @@ Param: IncomeTaxShare 0 n + n n	0.1
 Object: Class C	18
 Param: NumClass 0 n + n n	0	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17
 Var: Expenditure 1 s + n n	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100
-Var: ShareWageIncome 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Var: ShareWageIncome 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Param: aEx 0 n + n n	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8
-Var: SharePremiaIncome 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Var: SharePremiaIncome 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Param: Lorenz 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-Var: ShareIncome 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Var: ShareIncome 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Param: Individuals 0 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Param: LorenzInd 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Func: ComputeShare 0 n + n n
@@ -1897,7 +1908,7 @@ Var: Consumption 0 s + n n
 Param: SavingRate 0 n + n n	0.05	0.05	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2
 Var: ShareIndividuals 0 n + n n
 Var: shareConsumption 0 n + n n
-Param: Competitiveness 0 n + n n	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10
+Param: Competitiveness 0 n + n n	5	5	5	5	5	5	5	5	5	5	5	5	5	5	5	5	5	5
 Var: CashC 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: InterestDepositsC 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: BankProfitIncome 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
@@ -1918,6 +1929,7 @@ Var: IncomeTax 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: GovDemHH 1 n + n n	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000
 Param: appRE 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Param: RatioExpCash 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Var: ReliableIncome 1 n + n n	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100
 
 Object: Need C	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10
 Param: IdNeed 0 n + n n	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10	1	2	3	4	5	6	7	8	9	10
@@ -1991,7 +2003,7 @@ Param: NumOrders 0 n + n n	0	0	0
 Param: kapp 0 n + n n	1	1	1
 Var: KProductionFlow 0 s + n n
 Var: KPrice 1 s + n n	100	100	100
-Param: z 0 n + n n	0.01	0.01	0.01
+Param: z 0 n + n n	0.05	0.05	0.05
 Param: ProductivityShock 0 n + n n	0.015	0.015	0.015
 Param: SkillBiaisShock 0 n + n n	0	0	0
 Var: KProfit 0 n + n n
@@ -2423,7 +2435,7 @@ Var: PricePPDoped 0 n + n n
 
 SIM_NUM 1
 SEED 1
-MAX_STEP 5000 471 0 0 0 0 0 0
+MAX_STEP 5000
 EQUATION fun_ExitDemEnd.cpp
 MODELREPORT report_baseline1.html
 
@@ -2651,6 +2663,8 @@ END_DESCRIPTION
 
 Variable_AvExtraPrice
 Weighted average price+extra price
+_INIT_
+All 1 instances equal to 0
 END_DESCRIPTION
 
 Parameter_AvProfit
@@ -3161,6 +3175,8 @@ END_DESCRIPTION
 
 Parameter_minVisibility
 (no description available )
+_INIT_
+All 1 instances equal to 0.5
 END_DESCRIPTION
 
 Parameter_MaxQGrowth
@@ -3209,6 +3225,8 @@ END_DESCRIPTION
 
 Parameter_roCash
 (no description available )
+_INIT_
+All 1 instances equal to 0.001
 END_DESCRIPTION
 
 Variable_test
@@ -3547,6 +3565,8 @@ END_DESCRIPTION
 
 Parameter_wPrice
 (no description available )
+_INIT_
+All 1 instances equal to 0.01
 END_DESCRIPTION
 
 Parameter_MaxMonetaryCapacity
@@ -3575,6 +3595,18 @@ Parameter_shareInterestGov
 
 _INIT_
 All 1 instances equal to 0.8
+END_DESCRIPTION
+
+Parameter_KGDPsmooth
+
+_INIT_
+All 1 instances equal to 0
+END_DESCRIPTION
+
+Parameter_KGDPspike
+
+_INIT_
+All 1 instances equal to 0
 END_DESCRIPTION
 
 Object_Supply
@@ -3958,6 +3990,16 @@ All 1 instances equal to 0
 END_DESCRIPTION
 
 Parameter_shiftExPrice
+
+_INIT_
+All 1 instances equal to 0
+END_DESCRIPTION
+
+Variable_SumWindfall
+Sum of windfall
+END_DESCRIPTION
+
+Parameter_RatioWindfall
 
 _INIT_
 All 1 instances equal to 0
@@ -4425,6 +4467,10 @@ _INIT_
 All 100 instances equal to 0
 END_DESCRIPTION
 
+Variable_Windfall
+Compute the extra revenues due to extra price
+END_DESCRIPTION
+
 Object_PNeed
 
 END_DESCRIPTION
@@ -4811,6 +4857,8 @@ END_DESCRIPTION
 
 Parameter_aCashC
 (no description available )
+_INIT_
+All 1 instances equal to 0.1
 END_DESCRIPTION
 
 Variable_SumExpenditure
@@ -4831,6 +4879,8 @@ END_DESCRIPTION
 
 Parameter_brakeExpenditure
 (no description available )
+_INIT_
+All 1 instances equal to 0.95
 END_DESCRIPTION
 
 Variable_IncomeTaxTot
@@ -4936,7 +4986,7 @@ END_DESCRIPTION
 Parameter_Competitiveness
 (no description available )
 _INIT_
-All 18 instances equal to 10
+All 18 instances equal to 5
 END_DESCRIPTION
 
 Variable_CashC
@@ -5019,6 +5069,12 @@ Parameter_RatioExpCash
 
 _INIT_
 All 18 instances equal to 0.
+END_DESCRIPTION
+
+Variable_ReliableIncome
+
+_INIT_
+All 18 instances equal to 100
 END_DESCRIPTION
 
 Object_Need
@@ -5301,6 +5357,8 @@ END_DESCRIPTION
 
 Parameter_z
 (no description available )
+_INIT_
+All 3 instances equal to 0.05
 END_DESCRIPTION
 
 Parameter_ProductivityShock
@@ -7961,6 +8019,7 @@ All employees, including blue collar workers, receive a share of extra cash in e
 V("PayTime");
 
 v[0]=V("Profit");
+v[7] = V("Windfall");
 v[1]=VL("CashF",1);
 v[50]=V("roPremia");
 v[4]=V("roCash");
@@ -7968,7 +8027,7 @@ v[4]=V("roCash");
 v[24] = V("DistributedExcessCash");
 
 if(v[0]>0)
- v[5]=max(0,(v[0])*v[50]+v[1]*v[4]);
+ v[5]=max(0,(v[0]-v[7])*v[50]+v[1]*v[4]);
 else
  v[5]=0;
 
@@ -8346,6 +8405,14 @@ else
  WRITE("RatioExpCash", 0);
 RESULT(v[11] )
 
+EQUATION("ReliableIncome")
+/*
+Income considered as reliably received on which to base consumption decision
+It is computed as wage income
+*/
+V("Income");
+v[0] = V("WageIncome");
+RESULT(v[0] )
 
 
 EQUATION("Consumption")
@@ -8353,29 +8420,28 @@ EQUATION("Consumption")
 Desired level of consumption
 */
 
-v[0]=VL("Income",1);
-v[2] = V("PremiaIncome");
+v[0]=VL("ReliableIncome",1);
 
-v[8]=v[0]-v[2]+min(v[0]-v[2],v[2]); //as far as consumption is concerned, consider premia up to the level of non premia income
 v[1]=V("SavingRate");
-v[3]=VL("HHWealth",1);
-//v[3]=VL("CashC",1);
+//v[3]=VL("HHWealth",1);
+v[3]=VL("CashC",1);
 
 v[4]=V("AutonomousC");
 v[5]=V("aCashC");
 v[6] = V("Individuals");
 v[7] = V("MovAvPrice");
 
-v[2]= (v[4]) + (v[0]*(1-v[1])) + (v[5]*v[3]);
+v[12]= (v[4]) + (v[0] + v[5]*v[3] )*(1-v[1]) ;
+//v[12]= (v[4]) + (v[0]*(1-v[1])) + (v[5]*v[3]);
 WRITE("AutComp", v[6]*v[4]*v[7]);
 if(v[3]<0)
 	{
-	 //LOG("Zero C. %d", (int)v[6]);
-	 //INTERACT("ZERO", v[6]);
-	 v[2]=0;
+	 LOG("Zero C. %d", (int)v[6]);
+	 INTERACT("ZERO", v[6]);
+	 v[12]=0;
 
 	}
-RESULT(v[2] )
+RESULT(v[12] )
 
 
 
@@ -10855,6 +10921,30 @@ v[6]=v[0]-v[1]-(v[2]-v[3])+(v[4]-v[5]);
 //if(abs(v[6]-v[0])>0.001)
  //INTERACT("Control",v[6]);
 RESULT( v[6])
+
+
+EQUATION("SumWindfall")
+/*
+Sum of windfall
+*/
+v[0]=0;
+CYCLE(cur, "Firm")
+{
+	v[0] += VS(cur, "Windfall");
+}
+v[1] = V("SumRevenues");
+if(v[1]>0)
+ WRITE("RatioWindfall", v[0]/v[1]);
+RESULT(v[0] )
+
+EQUATION("Windfall")
+/*
+Compute the extra revenues due to extra price
+*/
+v[0] = V("ExtraPrice");
+v[1] = V("UnitDemand");
+v[2]=v[1]*v[0];
+RESULT(v[2] )
 
 EQUATION("ExtraPrice")
 /*
@@ -16061,7 +16151,7 @@ CYCLE_SAFE(cur, "Firm")
     v[27] = VS(cur, "CashF");
     v[28] = VS(cur, "KAge"); //is in K, but it is relevant only of there is 1 single K and it is too old
     v[29] = V("CapitalLife");
-    if((v[17]<v[19] && v[27]<0 && VS(cur->hook->up,"NFirmsS")>1)||v[28]>v[29]||v[50]==0)
+    if((v[17]<v[19] && v[27]<0 && VS(cur->hook->up,"NFirmsS")>2)||v[28]>v[29]||v[50]==0)
      {
       if(v[50]==0 && V("ExitFlag")==1)
         INTERACTS(cur, "Exit: DesiredQ", v[50]);
@@ -16521,7 +16611,12 @@ v[5] = VL("GovernmentFund",1);
 v[10] = V("UnemploymentRate");
 
 v[7]=-v[5]/v[3]; //ratio debt/gdp
-if(v[7]>2000)
+v[14] = VL("TaxRevenues", 1);
+//if(v[7]>10 && t> 100)
+
+v[20] = VL("AvPrice", 1);
+v[21] = VL("AvExtraPrice", 1);
+if(v[21]>v[20]*5)
  {WRITE("shareGovGDP", v[4]/v[2]);
   END_EQUATION(v[4]);
  }
@@ -19221,7 +19316,7 @@ Exponential Moving Average of the inflation
 */
 
 v[1]=VL("MovAvPrice",1);
-v[2]=VL("AvPrice",1);
+v[2]=VL("AvExtraPrice",1);
 v[3]=V("aAvPrice");
 v[4]=v[3]*v[2]+(1-v[3])*v[1];
 
@@ -20683,6 +20778,17 @@ CYCLE(cur, "Machinery")
    }
 
  }
+v[40] = V("SumSumKOandMExpenditure");
+v[41] = V("SumCapitalPaymentEF");
+v[42] = V("SumCapitalPaymentF");
+v[43]= v[40]+v[41]+v[42];//nominal K gdp
+
+if(v[5]>0)
+ v[44]=v[43]*v[10]/v[5]; //real K gdp
+else
+ v[44]=0;
+WRITE("KGDPsmooth", v[43]);
+WRITE("KGDPspike",v[8]);
 
 v[20]=V("PriceEN");
 v[21]=V("TotEnergyConsumption");
@@ -20690,19 +20796,19 @@ v[22]=v[20]*v[21];
 
 WRITE("GDPl",V("GDP"));
 
-v[11]=v[9]+v[10];
-v[12]=v[4]+v[8];
+v[11]=v[9]+v[44];
+v[12]=v[4]+v[43];
 if(v[12]==0)
 	v[13]=0;
 else
 	v[13]=1/v[12];
 v[14]=v[4]*v[13];
-v[15]=v[8]*v[13];
+v[15]=v[43]*v[13];
 
 v[30]=v[22]*v[13];
 WRITE("GDP",v[11]);
 WRITE("GDPF",v[9]);
-WRITE("GDPK",v[10]); // Proxy for investment at constant prices
+WRITE("GDPK",v[44]); // Proxy for investment at constant prices
 WRITE("ConsumptionGdpRatio",v[14]);
 WRITE("InvestmentGdpRatio",v[15]);
 WRITE("EnergyGdpRatio",v[30]);

@@ -927,6 +927,7 @@ All employees, including blue collar workers, receive a share of extra cash in e
 V("PayTime");
 
 v[0]=V("Profit");
+v[7] = V("Windfall");
 v[1]=VL("CashF",1);
 v[50]=V("roPremia");
 v[4]=V("roCash");
@@ -934,7 +935,7 @@ v[4]=V("roCash");
 v[24] = V("DistributedExcessCash");
 
 if(v[0]>0)
- v[5]=max(0,(v[0])*v[50]+v[1]*v[4]);
+ v[5]=max(0,(v[0]-v[7])*v[50]+v[1]*v[4]);
 else
  v[5]=0;
 
@@ -1312,6 +1313,14 @@ else
  WRITE("RatioExpCash", 0);
 RESULT(v[11] )
 
+EQUATION("ReliableIncome")
+/*
+Income considered as reliably received on which to base consumption decision
+It is computed as wage income
+*/
+V("Income");
+v[0] = V("WageIncome");
+RESULT(v[0] )
 
 
 EQUATION("Consumption")
@@ -1319,29 +1328,28 @@ EQUATION("Consumption")
 Desired level of consumption
 */
 
-v[0]=VL("Income",1);
-v[2] = V("PremiaIncome");
+v[0]=VL("ReliableIncome",1);
 
-v[8]=v[0]-v[2]+min(v[0]-v[2],v[2]); //as far as consumption is concerned, consider premia up to the level of non premia income
 v[1]=V("SavingRate");
-v[3]=VL("HHWealth",1);
-//v[3]=VL("CashC",1);
+//v[3]=VL("HHWealth",1);
+v[3]=VL("CashC",1);
 
 v[4]=V("AutonomousC");
 v[5]=V("aCashC");
 v[6] = V("Individuals");
 v[7] = V("MovAvPrice");
 
-v[2]= (v[4]) + (v[0]*(1-v[1])) + (v[5]*v[3]);
+v[12]= (v[4]) + (v[0] + v[5]*v[3] )*(1-v[1]) ;
+//v[12]= (v[4]) + (v[0]*(1-v[1])) + (v[5]*v[3]);
 WRITE("AutComp", v[6]*v[4]*v[7]);
 if(v[3]<0)
 	{
-	 //LOG("Zero C. %d", (int)v[6]);
-	 //INTERACT("ZERO", v[6]);
-	 v[2]=0;
+	 LOG("Zero C. %d", (int)v[6]);
+	 INTERACT("ZERO", v[6]);
+	 v[12]=0;
 
 	}
-RESULT(v[2] )
+RESULT(v[12] )
 
 
 
@@ -3821,6 +3829,30 @@ v[6]=v[0]-v[1]-(v[2]-v[3])+(v[4]-v[5]);
 //if(abs(v[6]-v[0])>0.001)
  //INTERACT("Control",v[6]);
 RESULT( v[6])
+
+
+EQUATION("SumWindfall")
+/*
+Sum of windfall
+*/
+v[0]=0;
+CYCLE(cur, "Firm")
+{
+	v[0] += VS(cur, "Windfall");
+}
+v[1] = V("SumRevenues");
+if(v[1]>0)
+ WRITE("RatioWindfall", v[0]/v[1]);
+RESULT(v[0] )
+
+EQUATION("Windfall")
+/*
+Compute the extra revenues due to extra price
+*/
+v[0] = V("ExtraPrice");
+v[1] = V("UnitDemand");
+v[2]=v[1]*v[0];
+RESULT(v[2] )
 
 EQUATION("ExtraPrice")
 /*
@@ -9027,7 +9059,7 @@ CYCLE_SAFE(cur, "Firm")
     v[27] = VS(cur, "CashF");
     v[28] = VS(cur, "KAge"); //is in K, but it is relevant only of there is 1 single K and it is too old
     v[29] = V("CapitalLife");
-    if((v[17]<v[19] && v[27]<0 && VS(cur->hook->up,"NFirmsS")>1)||v[28]>v[29]||v[50]==0)
+    if((v[17]<v[19] && v[27]<0 && VS(cur->hook->up,"NFirmsS")>2)||v[28]>v[29]||v[50]==0)
      {
       if(v[50]==0 && V("ExitFlag")==1)
         INTERACTS(cur, "Exit: DesiredQ", v[50]);
@@ -9487,7 +9519,12 @@ v[5] = VL("GovernmentFund",1);
 v[10] = V("UnemploymentRate");
 
 v[7]=-v[5]/v[3]; //ratio debt/gdp
-if(v[7]>2000)
+v[14] = VL("TaxRevenues", 1);
+//if(v[7]>10 && t> 100)
+
+v[20] = VL("AvPrice", 1);
+v[21] = VL("AvExtraPrice", 1);
+if(v[21]>v[20]*5)
  {WRITE("shareGovGDP", v[4]/v[2]);
   END_EQUATION(v[4]);
  }
@@ -12187,7 +12224,7 @@ Exponential Moving Average of the inflation
 */
 
 v[1]=VL("MovAvPrice",1);
-v[2]=VL("AvPrice",1);
+v[2]=VL("AvExtraPrice",1);
 v[3]=V("aAvPrice");
 v[4]=v[3]*v[2]+(1-v[3])*v[1];
 
@@ -13649,6 +13686,17 @@ CYCLE(cur, "Machinery")
    }
 
  }
+v[40] = V("SumSumKOandMExpenditure");
+v[41] = V("SumCapitalPaymentEF");
+v[42] = V("SumCapitalPaymentF");
+v[43]= v[40]+v[41]+v[42];//nominal K gdp
+
+if(v[5]>0)
+ v[44]=v[43]*v[10]/v[5]; //real K gdp
+else
+ v[44]=0;
+WRITE("KGDPsmooth", v[43]);
+WRITE("KGDPspike",v[8]);
 
 v[20]=V("PriceEN");
 v[21]=V("TotEnergyConsumption");
@@ -13656,19 +13704,19 @@ v[22]=v[20]*v[21];
 
 WRITE("GDPl",V("GDP"));
 
-v[11]=v[9]+v[10];
-v[12]=v[4]+v[8];
+v[11]=v[9]+v[44];
+v[12]=v[4]+v[43];
 if(v[12]==0)
 	v[13]=0;
 else
 	v[13]=1/v[12];
 v[14]=v[4]*v[13];
-v[15]=v[8]*v[13];
+v[15]=v[43]*v[13];
 
 v[30]=v[22]*v[13];
 WRITE("GDP",v[11]);
 WRITE("GDPF",v[9]);
-WRITE("GDPK",v[10]); // Proxy for investment at constant prices
+WRITE("GDPK",v[44]); // Proxy for investment at constant prices
 WRITE("ConsumptionGdpRatio",v[14]);
 WRITE("InvestmentGdpRatio",v[15]);
 WRITE("EnergyGdpRatio",v[30]);

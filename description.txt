@@ -21,3 +21,28 @@ Oct. 21st
 7. In "KNbrWorkers" removed the constraint in hiring due to shortage in labor market. The previous constraint was extreme, fixing the actual hiring to be the desired level times the unemployment rate, which can be as low as 0,001.
 
 
+Dec. 28, 2022
+Introduced new indicators and modified some equations:
+
+Windfall: amount of revenues due to extra price (above asked price) times the unit sold. It is not distributed as premium and remains as cash of the firms
+
+ReliableIncome: considered only wage income to determine consumption
+Consumption uses only reliable income. The share of cash consumed is proportional to the propensity to consume. HHWealth is not used, replaced by cash only
+
+Exit: firms are not removed if there is only one alternative. To avoid that the only remaining one, as before, is a newly entered one without capital to produce.
+
+GovDemTot: remain constant if the AvExtraPrice is 5 times higher than AvPrice
+
+MovAvPrice: it is based on AvExtraPrice, not on AvPrice
+
+GDPnom: GDP, for the K contribution, is not computed on highly volatile sales but on capital payment (minus interests)
+
+Initialization changed:
+minVisibility=0.5 (0.8)
+roCasch=0.001 (0.005)
+aCashC=0.1 (0.005)
+brakeExpenditure=0.95 (0.999)
+Competitiveness=5 (10)
+z=0.05 (0.01)
+
+
