@@ -1,6 +1,6 @@
 //#define NO_POINTER_INIT
 #include "fun_head_fast.h"
-
+#include "s-adapt.h"
 //extern char msg[]; // deprecated in LSD 8.0
 //char msg[ 5000 ];
 MODELBEGIN
@@ -7349,6 +7349,19 @@ EQUATION("UnitCostKEN")
 Cost of units of energy computing labor and capital
 */
 
+
+v[0] = VS(p, "shareLaborKEN");
+v[1]=VS(p,"LaborCostEF");
+v[2] = VS(p,"markupEF");
+v[3] = VS(p, "InitKENCapacity");
+
+if(v[3]>0)
+ v[4]=v[0]*v[1]/v[3];
+else
+ v[4]=0; 
+v[5]=v[4]*v[2];
+END_EQUATION(v[5])
+
 v[0] = V("LaborCostEF");//total labor cost
 v[1] = V("shareLaborKEN");
 v[2] = V("InstallmentEF");
@@ -7378,10 +7391,10 @@ for this capital unit
 v[0] = VS(p->hook, "shareLaborKEN");
 v[1]=VS(p->hook,"LaborCostEF");
 v[2] = VS(p->hook,"markupEF");
-v[3] = VS(p->hook, "KENCapacity");
+v[3] = VS(p->hook, "InitKENCapacity");
 
 v[4]=v[0]*v[1]/v[3];
-v[5]=v[4]*v[2];
+v[5]=v[4]*v[2]+uniform(-0.0001, 0.0001);
 END_EQUATION(v[5])
 
 v[11]=VS(p->hook,"SumKOandMExpenditure");
@@ -8669,10 +8682,13 @@ WRITES(cur4, "PrincipalF", 0);
 
 
 WRITELS(cur1,"MonetarySales",0, t);
-WRITELS(cur1,"Q",0, t);
+
 WRITELS(cur1,"backlog",0, t);
 v[2] = VS(cur1->hook,"SUnitSales");
 v[3] = VS(cur1->hook, "msEntrants");
+WRITELLS(cur1,"Q",v[2]*v[3], t,1);
+WRITELLS(cur1,"Q",v[2]*v[3], t,2);
+
 WRITELS(cur1,"ExpectedSales",v[2]*v[3], t);
 WRITELS(cur1,"DesiredQ",v[2]*v[3], t);
 WRITELS(cur1,"CapitalStock",0, t);
@@ -9215,7 +9231,6 @@ EQUATION("Visibility")
 /*
 Comment
 */
-//END_EQUATION(1);
 v[0]=V("backlog");
 v[1]=CURRENT;
 //v[2]=V("MonetarySales");
@@ -9231,7 +9246,13 @@ v[4]=max(v[3],V("minVisibility"));
 v[6]=V("aVisibility");
 v[5]=v[1]*(1-v[6])+v[6]*v[4];
 
-RESULT(v[5] )
+v[10] = VL("price", 1);
+v[11] = VL("ExtraPrice",1);
+
+v[12]=v[10]/(v[10]+v[11]); 
+
+v[13]=v[1]*v[6]+(1-v[6])*v[12];
+RESULT(v[13] )
 
 
 EQUATION("TTB_multiplWinner")
@@ -9530,7 +9551,8 @@ if(v[21]>v[20]*5)
  }
 
 if(v[10]>0.05)
- {v[8] = V("increaseGovDemTot");
+ {v[11]=(v[10]-0.05)/0.95;
+  v[8] = 1+V("increaseGovDemTot")*v[11];
   v[6]=v[4]*v[8];
   WRITE("shareGovGDP", v[6]/v[2]);
   END_EQUATION(v[6]);
@@ -10176,16 +10198,37 @@ v[3]=v[0]*v[2]+(1-v[2])*v[1];
 
 RESULT(v[3] )
 
-
-EQUATION("Q")
+EQUATION("FeasibleDesiredQ")
 /*
-Actual production, which is the minimum between desired production and constraints
+Comment
 */
 
 v[6] = V("ExtraCapacity");
 v[0]=V("DesiredQ");
 v[1]=V("LaborCapacity")*v[6];
 v[2]=min(v[0],v[1]);
+v[3]=V("CapitalCapacity")*v[6];
+v[5]=min(v[3],v[2]);
+
+RESULT(v[5] )
+
+
+EQUATION("Q")
+/*
+Actual production, which is the minimum between desired production and constraints
+*/
+
+
+v[16] = VL("Q", 1);
+v[6] = V("ExtraCapacity");
+v[0]=V("DesiredQ");
+v[10] = V("aSadapt");
+v[17]=v[7]=sadapt(p, "FeasibleDesiredQ", "Q", v[10]);
+END_EQUATION(v[7]);
+if(v[7]<v[16]*.1)
+ v[7]=v[16]*.1;
+v[1]=V("LaborCapacity")*v[6];
+v[2]=min(v[7],v[1]);
 v[3]=V("CapitalCapacity")*v[6];
 v[5]=min(v[3],v[2]);
 if(v[5]<0)
@@ -12521,6 +12564,9 @@ CYCLE(cur4, "Supply")
     v[62] = VS(cur1, "MaxLaborProductivity"); //Labor productivity
     WRITELS(cur1, "MovAvExpSales", v[61]/v[62], t-1);
     WRITELS(cur1, "ExpectedSales", v[61]/v[62], t-1);
+    WRITELLS(cur1, "Q", v[61]/v[62], t, 1);
+    WRITELLS(cur1, "Q", v[61]/v[62], t-1, 2);
+    
 
     CYCLES(cur1, cur, "Labor")
      {
