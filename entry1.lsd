@@ -1235,6 +1235,8 @@ Label Root
 			Param: KGDPsmooth
 			Param: KGDPspike
 			Param: aSadapt
+			Var: ExtraGovSpending
+			Param: shareExtraGovSpending
 
 		}
 
@@ -1378,7 +1380,7 @@ Var: InvSalesRatio 0 n + n n
 Param: InventGrowth 0 n + n n	0
 Param: InvestmentGdpRatio 0 s + n n	-1
 Param: JobLoss 0 n + n n	0
-Param: KaNW 0 n + n n	0.1
+Param: KaNW 0 n + n n	0
 Var: LTUnemployment 1 s + n n	-1
 Param: LowerMinWage 0 n + n n	-1
 Var: MaxNumWorkers 1 n + n n	1000000
@@ -1463,7 +1465,7 @@ Param: totNeeds 0 n + n n	10
 Param: zero 0 n + n n	0
 Param: EnergyGdpRatio 0 n + n n	0.05369
 Var: MinWageGr 0 n + n n
-Param: ExtraCapacity 0 n + n n	1.2
+Param: ExtraCapacity 0 n + n n	3
 Param: minVisibility 0 n + n n	0.5
 Param: MaxQGrowth 0 n + n n	10
 Var: ControlPremiaIncome 0 n + n n
@@ -1566,6 +1568,8 @@ Param: shareInterestGov 0 n + n n	0.8
 Param: KGDPsmooth 0 s + n n	0
 Param: KGDPspike 0 s + n n	0
 Param: aSadapt 0 n + n n	5
+Var: ExtraGovSpending 0 n + n n
+Param: shareExtraGovSpending 0 n + n n	0.1
 
 Object: Supply C	1
 Param: aES 0 n + n n	0.9
@@ -1599,7 +1603,7 @@ Param: sPrice 0 n + n n	0
 Param: aClearingPrice 0 n + n n	0.5
 Param: aaNW 0 n + n n	0.02
 Var: AvMaxEfficiency 0 n + n n
-Param: aNWmin 0 n + n n	0.8
+Param: aNWmin 0 n + n n	0.2
 Param: aNWmax 0 n + n n	0.9
 Param: aNWsmooth 0 n + n n	1
 Var: SumWagePrem 0 s + n n
@@ -1698,8 +1702,8 @@ Var: ProdInno 0 n + n n
 Param: ProdShockP 0 n + n n	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1
 Var: Profit 1 s + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
 Var: Q 2 s + n n	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10
-Param: RatioVacancies 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-Param: RationingRatioFirm 0 n + n n	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+Param: RatioVacancies 0 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Param: RationingRatioFirm 0 s + n n	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
 Var: RdExpenditure 0 n + n n
 Var: Revenues 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: SmoothProfit 1 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
@@ -1732,7 +1736,7 @@ Var: smoothMonSales 1 n + n n	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1
 Param: tInno 0 n + n n	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7	-7
 Param: zInno 0 n + n n	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001	0.001
 Var: ClearingPrice 0 n + n n
-Var: aNW 1 n + n n	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8
+Var: aNW 1 s + n n	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8
 Param: MaxEfficiency 0 n + n n	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005	0.005
 Param: backlogSalesL 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: ControlPremia 0 n + n n
@@ -1912,7 +1916,7 @@ Var: Consumption 0 s + n n
 Param: SavingRate 0 n + n n	0.05	0.05	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2
 Var: ShareIndividuals 0 n + n n
 Var: shareConsumption 0 n + n n
-Param: Competitiveness 0 n + n n	5	5	5	5	5	5	5	5	5	5	5	5	5	5	5	5	5	5
+Param: Competitiveness 0 n + n n	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10
 Var: CashC 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: InterestDepositsC 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: BankProfitIncome 1 s + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
@@ -1965,8 +1969,8 @@ Var: AvLocalPriceProd 0 n + n n
 Param: AvWaitTime 0 n + n n	1.131
 Param: DiscountUsedK 0 n + n n	1
 Param: IsEnergyK 0 n + n n	1
-Param: KEmployment 0 n + n n	-1
-Param: KEmploymentShare 0 n + n n	-1
+Param: KEmployment 0 s + n n	-1
+Param: KEmploymentShare 0 s + n n	-1
 Param: KFirmSeeRoW 0 n + n n	-1
 Param: KNomGDPShare 0 s + n n	-1
 Param: KOutputShare 0 s + n n	0
@@ -2021,7 +2025,7 @@ Param: AvKWage 0 n + n n	0	0	0
 Param: KConstPrice 0 n + n n	1	1	1
 Var: KWagePrem 0 n + n n
 Var: KLaborCost 0 s + n n
-Param: KVacancies 0 n + n n	0	0	0
+Param: KVacancies 0 s + n n	0	0	0
 Param: KRatioVacancies 0 s + n n	0	0	0
 Param: KLaborForce 0 n + n n	0	0	0
 Param: KLaborForceL 0 n + n n	0	0	0
@@ -2439,9 +2443,9 @@ Var: PricePPDoped 0 n + n n
 
 SIM_NUM 1
 SEED 1
-MAX_STEP 5000 1 0 0 0 0 0 0
+MAX_STEP 5000
 EQUATION fun_ExitDemEnd.cpp
-MODELREPORT report_baseline1.html
+MODELREPORT report_entry1.html
 
 DESCRIPTION
 
@@ -2835,6 +2839,8 @@ END_DESCRIPTION
 
 Parameter_KaNW
 (no description available )
+_INIT_
+All 1 instances equal to 0
 END_DESCRIPTION
 
 Variable_LTUnemployment
@@ -3175,6 +3181,8 @@ END_DESCRIPTION
 
 Parameter_ExtraCapacity
 (no description available )
+_INIT_
+All 1 instances equal to 3
 END_DESCRIPTION
 
 Parameter_minVisibility
@@ -3619,6 +3627,16 @@ _INIT_
 All 1 instances equal to 5
 END_DESCRIPTION
 
+Variable_ExtraGovSpending
+In case public debt is negative a share of is used for extra spending
+END_DESCRIPTION
+
+Parameter_shareExtraGovSpending
+
+_INIT_
+All 1 instances equal to 0.1
+END_DESCRIPTION
+
 Object_Supply
 
 END_DESCRIPTION
@@ -3751,6 +3769,8 @@ END_DESCRIPTION
 
 Parameter_aNWmin
 (no description available )
+_INIT_
+All 1 instances equal to 0.2
 END_DESCRIPTION
 
 Parameter_aNWmax
@@ -5004,7 +5024,7 @@ END_DESCRIPTION
 Parameter_Competitiveness
 (no description available )
 _INIT_
-All 18 instances equal to 5
+All 18 instances equal to 10
 END_DESCRIPTION
 
 Variable_CashC
@@ -10163,13 +10183,13 @@ v[4] = V("GovernmentExpenses");
 v[6] = VL("InterestGovFund",1);
 v[7] = VL("IncomeTaxTot",0);
 v[8] = VL("GovDemTot",1);
-
+v[11] = V("ExtraGovSpending");
 v[9] = VL("BankCapital",1);
 if(v[9]<0)
  v[10]=v[9];
 else
  v[10]=0; 
-v[5]=v[0]+v[1]+v[2]+v[3]-v[4]-v[6]-v[8]+v[7]+v[10];
+v[5]=v[0]+v[1]+v[2]+v[3]-v[4]-v[6]-v[8]-v[11]+v[7]+v[10];
 RESULT(v[5] )
 
 EQUATION("GovDeficit")
@@ -16607,8 +16627,9 @@ EQUATION("GovDemHH")
 Government demand expressed by the class
 */
 v[0] = V("GovDemTot");
+v[3] = V("ExtraGovSpending");
 v[1] = V("ShareIndividuals");
-v[2]=v[0]*v[1];
+v[2]=(v[0]+v[3])*v[1];
 RESULT(v[2] )
 
 EQUATION("GDGDPRatio")
@@ -16617,8 +16638,21 @@ Gov. demand to GDP ratio
 */
 
 v[0] = V("GovDemTot");
+v[3] = V("ExtraGovSpending");
 v[1] = V("GDPnom");
-v[2]=v[0]/v[1];
+v[2]=(v[3]+v[0])/v[1];
+RESULT(v[2] )
+
+EQUATION("ExtraGovSpending")
+/*
+In case public debt is negative a share of is used for extra spending
+*/
+v[0] = V("GovernmentFund");
+v[1] = V("shareExtraGovSpending");
+if(v[0]>0)
+ v[2]=v[0]*v[1];
+else
+ v[2]=0; 
 RESULT(v[2] )
 
 
@@ -16647,6 +16681,12 @@ if(t==1)
  END_EQUATION(v[2]*v[1]);
 v[4] = VL("GovDemTot", 1);
 v[5] = VL("GovernmentFund",1);
+/*
+if(v[5]>0)
+ v[50]=v[5]*0.05;
+else*/
+
+ v[50]=0; 
 v[10] = V("UnemploymentRate");
 
 v[7]=-v[5]/v[3]; //ratio debt/gdp
@@ -16656,7 +16696,8 @@ v[14] = VL("TaxRevenues", 1);
 v[20] = VL("AvPrice", 1);
 v[21] = VL("AvExtraPrice", 1);
 if(v[21]>v[20]*5)
- {WRITE("shareGovGDP", v[4]/v[2]);
+ {v[4]+=v[50];
+  WRITE("shareGovGDP", v[4]/v[2]);
   END_EQUATION(v[4]);
  }
 
@@ -16664,64 +16705,14 @@ if(v[10]>0.05)
  {v[11]=(v[10]-0.05)/0.95;
   v[8] = 1+V("increaseGovDemTot")*v[11];
   v[6]=v[4]*v[8];
+  v[6]+=v[50];
   WRITE("shareGovGDP", v[6]/v[2]);
   END_EQUATION(v[6]);
  }
- 
+
+v[4]+=v[50];
 WRITE("shareGovGDP", v[4]/v[2]);
 RESULT(v[4])
-
-
-EQUATION("GovDemTotXXX")
-/*
-Total government demand
-1) At time t=1 it is a share of GDP
-2) If the ratio deficit/GDP is below 3% of GDP demand is increased by twice the GDP rate if positive and half if negative
-3) if the ratio deficit/GDP is above 3% of GDP govdemand is increased by 80% of GDP rate if positive and by 20% if negative
-*/
-v[1] = V("shareGDup");
-v[3] = VL("GDPnom",1);
-v[2] = V("GDPnom");
-
-if(t==1)
- END_EQUATION(v[2]*v[1]);
-v[4] = VL("GovDemTot", 1);
-
-v[10] = V("UnemploymentRate");
-v[11]=0.1-v[10];
-
-if(v[11]>0)
- {
-  v[12]=(1-10*v[11]);
- }
-else
- v[12]=1;
-v[5] = VL("GovDeficit",1);
-if(v[5]/v[2]>-0.03)
- {
-  if(v[3]<v[2])
-   v[6]=v[4]*(1+v[12]*2*(v[2]-v[3])/v[3]);
-  else
-   v[6]=v[4]*(1+v[12]*0.5*(v[2]-v[3])/v[3]);
- }
-else
- {
-  if(v[3]<v[2])
-   v[6]=v[4]*(1+0.8*(v[2]-v[3])/v[3]);
-  else
-   v[6]=v[4]*(1+0.2*(v[2]-v[3])/v[3]);
-
- }
-if(v[6]<0)
- v[6]=v[4];
-
-v[16] = V("MaxMonetaryCapacity");
-if(v[6]>v[16]*3)
- v[6]=v[16]*3;
-
-WRITE("shareGovGDP", v[6]/v[2]);
-RESULT(v[6])
-
 
 
 EQUATION("shareGDup")
@@ -17417,6 +17408,9 @@ if(v[14]==1)
   v[4]=V("DesiredUnusedCapacity");
   v[3]=v[4]*(v[9]/v[2]);
   v[5]=V("aNW");
+  if(v[3]<v[0])
+   v[5]=0.9;
+   //v[5]=min(0.9, v[5]*2); //falling employment is slower than increasing
   v[6]=v[0]*v[5]+(1-v[5])*v[3]; // number of workers in the first layer
   v[26] = VL("UnemploymentRate",1);
   v[28]=v[6]-v[0];
@@ -18425,8 +18419,8 @@ if(v[11]==0)
 
 v[12]=v[11]*v[8];//desired capital
 
-if(v[11]+v[3]-v[43]>V("LaborCapacity")*1.5)
-  INTERACT("Huge KapitalNeed",v[11]);
+//if(v[11]+v[3]-v[43]>V("LaborCapacity")*1.5)
+  //INTERACT("Huge KapitalNeed",v[11]);
 END_EQUATION( v[12]);
 
 /////// CANCELED ///////////////
@@ -18775,6 +18769,8 @@ if(v[14]==1)
   v[4]=V("KDesiredUnusedCapacity");
   v[3]=v[4]*(v[1]/v[2]);
   v[5]=V("KaNW");
+  if(v[0]>v[3])
+   v[5]=0.9;
   v[6]=v[0]*v[5]+(1-v[5])*v[3];
 	v[26] = VL("UnemploymentRate", 1);
   v[28]=v[6]-v[0];
@@ -18786,7 +18782,10 @@ if(v[14]==1)
    }
   */
   v[33]=v[3]>v[6]?v[3]-v[6]:0;
-  v[54]=v[33]/v[6];
+  if(v[6]>0)
+   v[54]=v[33]/v[6];
+  else
+   v[54]=0; 
   WRITES(p->up,"KVacancies",v[33]);
   WRITES(p->up,"KRatioVacancies",v[54]);
   if(v[6]<1)

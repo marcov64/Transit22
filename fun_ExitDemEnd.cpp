@@ -3053,13 +3053,13 @@ v[4] = V("GovernmentExpenses");
 v[6] = VL("InterestGovFund",1);
 v[7] = VL("IncomeTaxTot",0);
 v[8] = VL("GovDemTot",1);
-
+v[11] = V("ExtraGovSpending");
 v[9] = VL("BankCapital",1);
 if(v[9]<0)
  v[10]=v[9];
 else
  v[10]=0; 
-v[5]=v[0]+v[1]+v[2]+v[3]-v[4]-v[6]-v[8]+v[7]+v[10];
+v[5]=v[0]+v[1]+v[2]+v[3]-v[4]-v[6]-v[8]-v[11]+v[7]+v[10];
 RESULT(v[5] )
 
 EQUATION("GovDeficit")
@@ -9497,8 +9497,9 @@ EQUATION("GovDemHH")
 Government demand expressed by the class
 */
 v[0] = V("GovDemTot");
+v[3] = V("ExtraGovSpending");
 v[1] = V("ShareIndividuals");
-v[2]=v[0]*v[1];
+v[2]=(v[0]+v[3])*v[1];
 RESULT(v[2] )
 
 EQUATION("GDGDPRatio")
@@ -9507,8 +9508,21 @@ Gov. demand to GDP ratio
 */
 
 v[0] = V("GovDemTot");
+v[3] = V("ExtraGovSpending");
 v[1] = V("GDPnom");
-v[2]=v[0]/v[1];
+v[2]=(v[3]+v[0])/v[1];
+RESULT(v[2] )
+
+EQUATION("ExtraGovSpending")
+/*
+In case public debt is negative a share of is used for extra spending
+*/
+v[0] = VL("GovernmentFund",1);
+v[1] = V("shareExtraGovSpending");
+if(v[0]>0)
+ v[2]=v[0]*v[1];
+else
+ v[2]=0; 
 RESULT(v[2] )
 
 
@@ -9537,6 +9551,12 @@ if(t==1)
  END_EQUATION(v[2]*v[1]);
 v[4] = VL("GovDemTot", 1);
 v[5] = VL("GovernmentFund",1);
+/*
+if(v[5]>0)
+ v[50]=v[5]*0.05;
+else*/
+
+ v[50]=0; 
 v[10] = V("UnemploymentRate");
 
 v[7]=-v[5]/v[3]; //ratio debt/gdp
@@ -9546,7 +9566,8 @@ v[14] = VL("TaxRevenues", 1);
 v[20] = VL("AvPrice", 1);
 v[21] = VL("AvExtraPrice", 1);
 if(v[21]>v[20]*5)
- {WRITE("shareGovGDP", v[4]/v[2]);
+ {v[4]+=v[50];
+  WRITE("shareGovGDP", v[4]/v[2]);
   END_EQUATION(v[4]);
  }
 
@@ -9554,64 +9575,14 @@ if(v[10]>0.05)
  {v[11]=(v[10]-0.05)/0.95;
   v[8] = 1+V("increaseGovDemTot")*v[11];
   v[6]=v[4]*v[8];
+  v[6]+=v[50];
   WRITE("shareGovGDP", v[6]/v[2]);
   END_EQUATION(v[6]);
  }
- 
+
+v[4]+=v[50];
 WRITE("shareGovGDP", v[4]/v[2]);
 RESULT(v[4])
-
-
-EQUATION("GovDemTotXXX")
-/*
-Total government demand
-1) At time t=1 it is a share of GDP
-2) If the ratio deficit/GDP is below 3% of GDP demand is increased by twice the GDP rate if positive and half if negative
-3) if the ratio deficit/GDP is above 3% of GDP govdemand is increased by 80% of GDP rate if positive and by 20% if negative
-*/
-v[1] = V("shareGDup");
-v[3] = VL("GDPnom",1);
-v[2] = V("GDPnom");
-
-if(t==1)
- END_EQUATION(v[2]*v[1]);
-v[4] = VL("GovDemTot", 1);
-
-v[10] = V("UnemploymentRate");
-v[11]=0.1-v[10];
-
-if(v[11]>0)
- {
-  v[12]=(1-10*v[11]);
- }
-else
- v[12]=1;
-v[5] = VL("GovDeficit",1);
-if(v[5]/v[2]>-0.03)
- {
-  if(v[3]<v[2])
-   v[6]=v[4]*(1+v[12]*2*(v[2]-v[3])/v[3]);
-  else
-   v[6]=v[4]*(1+v[12]*0.5*(v[2]-v[3])/v[3]);
- }
-else
- {
-  if(v[3]<v[2])
-   v[6]=v[4]*(1+0.8*(v[2]-v[3])/v[3]);
-  else
-   v[6]=v[4]*(1+0.2*(v[2]-v[3])/v[3]);
-
- }
-if(v[6]<0)
- v[6]=v[4];
-
-v[16] = V("MaxMonetaryCapacity");
-if(v[6]>v[16]*3)
- v[6]=v[16]*3;
-
-WRITE("shareGovGDP", v[6]/v[2]);
-RESULT(v[6])
-
 
 
 EQUATION("shareGDup")
@@ -10307,6 +10278,9 @@ if(v[14]==1)
   v[4]=V("DesiredUnusedCapacity");
   v[3]=v[4]*(v[9]/v[2]);
   v[5]=V("aNW");
+  if(v[3]<v[0])
+   v[5]=0.9;
+   //v[5]=min(0.9, v[5]*2); //falling employment is slower than increasing
   v[6]=v[0]*v[5]+(1-v[5])*v[3]; // number of workers in the first layer
   v[26] = VL("UnemploymentRate",1);
   v[28]=v[6]-v[0];
@@ -11315,8 +11289,8 @@ if(v[11]==0)
 
 v[12]=v[11]*v[8];//desired capital
 
-if(v[11]+v[3]-v[43]>V("LaborCapacity")*1.5)
-  INTERACT("Huge KapitalNeed",v[11]);
+//if(v[11]+v[3]-v[43]>V("LaborCapacity")*1.5)
+  //INTERACT("Huge KapitalNeed",v[11]);
 END_EQUATION( v[12]);
 
 /////// CANCELED ///////////////
@@ -11665,6 +11639,8 @@ if(v[14]==1)
   v[4]=V("KDesiredUnusedCapacity");
   v[3]=v[4]*(v[1]/v[2]);
   v[5]=V("KaNW");
+  if(v[0]>v[3])
+   v[5]=0.9;
   v[6]=v[0]*v[5]+(1-v[5])*v[3];
 	v[26] = VL("UnemploymentRate", 1);
   v[28]=v[6]-v[0];
@@ -11676,7 +11652,10 @@ if(v[14]==1)
    }
   */
   v[33]=v[3]>v[6]?v[3]-v[6]:0;
-  v[54]=v[33]/v[6];
+  if(v[6]>0)
+   v[54]=v[33]/v[6];
+  else
+   v[54]=0; 
   WRITES(p->up,"KVacancies",v[33]);
   WRITES(p->up,"KRatioVacancies",v[54]);
   if(v[6]<1)
@@ -12963,6 +12942,7 @@ CYCLE(cur, "EnergyFirm")
 }
 
 v[60] = V("GovernmentFund");
+v[61] = V("ExtraGovSpending");
 
 WRITE("TotKFirm", v[33]);
 WRITE("TotKEF", v[34]);
@@ -13000,9 +12980,9 @@ if(abs(v[0]+v[40]-v[85])/v[0]>0.000001)
 v[87] = VL("DistributedProfitsBank",1);
 //LOG("%lf\n", v[35]+v[1]-v[87]-v[0]-v[40]+v[60]);
 //BankK + Deposits + DistributedProfitBank - Overdraft - Principal + Gov.Fund - NonPerformingLoans
-if(abs(v[35]+v[1]+v[87]-v[0]-v[40]+v[60]-v[86] )/v[0]>0.0001)
+if(abs(v[35]+v[1]+v[87]-v[0]-v[40]+v[60]+v[61]-v[86] )/v[0]>0.0001)
  {
-  LOG("%lf\n", v[35]+v[1]+v[87]-v[0]-v[40]+v[60]-v[86]);
+  LOG("%lf\n", v[35]+v[1]+v[87]-v[0]-v[40]+v[60]+v[61]-v[86]);
   INTERACT("Error CFB",v[35]+v[1]+v[87]-v[0]-v[40]+v[60]-v[86]);  
  } 
 //LOG("%lf\t%lf\t%lf\t%lf\n", v[35],v[1],v[0],v[40]);
