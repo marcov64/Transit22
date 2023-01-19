@@ -4584,7 +4584,7 @@ else
 	v[6]=0;
 	}
 v[7]=max(v[6],0);
-v[8]=v[0] + v[7];
+v[8]=v[0]*(1+v[7]);
 
 
 v[12] = V("KType");
@@ -8379,7 +8379,7 @@ else
    }
    else
    {//after transition
-      v[72]=V("TotBrownCapacity");
+      v[72]=V("TotENCapacity");
       if(v[11]!=0)
        { //not new entrant
       	  v[9]=V("msENCapacity");
