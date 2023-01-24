@@ -1352,7 +1352,7 @@ Var: Avx 0 n + n n
 Param: BaseMinWage 0 n + n n	-1
 Param: BaseP 0 n + n n	-1
 Param: BaseProd 0 n + n n	-1
-Var: CPI 0 n + n n
+Var: CPI 0 s + n n
 Var: ClearExitRecord 0 n + n n
 Var: ConsumptionConcentration 0 n + n n
 Param: ConsumptionGdpRatio 0 n + n n	-1
@@ -1589,7 +1589,7 @@ Param: CapitalIntens 0 n + n n	2
 Param: ExitFlag 0 n + n n	0
 Param: DivisorLiquidityFinance 0 n + n n	20
 Param: capMinWage 0 n + n n	0.04
-Var: TotEN 0 n + n n
+Var: TotEN 0 s + n n
 Param: ControlWaiting 0 n + n n	0
 Var: AvDiffCapacity 0 n + n n
 Var: NbrFirms 0 s + n n
@@ -1613,7 +1613,7 @@ Param: aNWsmooth 0 n + n n	1
 Var: SumWagePrem 0 s + n n
 Var: SumLaborCost 0 s + n n
 Var: SumInvestment 0 s + n n
-Var: TotEN2 0 n + n n
+Var: TotEN2 0 s + n n
 Var: TotStocks 0 n + n n
 Var: SumRevenues 0 s + n n
 Var: SumBacklogSales 0 n + n n
