@@ -1337,9 +1337,9 @@ Object: Country C	1
 Var: AggProductivity 1 n + n n	-1
 Var: Andre 0 n + n n
 Param: AvAge 0 n + n n	-1
-Param: AvCurrentProductivity 0 n + n n	-1
-Param: AvKProfit 0 n + n n	-1
-Var: AvMarkup 0 n + n n
+Param: AvCurrentProductivity 0 s + n n	-1
+Param: AvKProfit 0 s + n n	-1
+Var: AvMarkup 0 s + n n
 Var: AvMaxLProd 0 n + n n
 Param: AvMkup 0 n + n n	-1
 Var: AvPrice 1 s + n n	-1
@@ -1352,10 +1352,10 @@ Var: Avx 0 n + n n
 Param: BaseMinWage 0 n + n n	-1
 Param: BaseP 0 n + n n	-1
 Param: BaseProd 0 n + n n	-1
-Var: CPI 0 n + n n
+Var: CPI 0 s + n n
 Var: ClearExitRecord 0 n + n n
 Var: ConsumptionConcentration 0 n + n n
-Param: ConsumptionGdpRatio 0 n + n n	-1
+Param: ConsumptionGdpRatio 0 s + n n	-1
 Var: EmploymentConcentration 0 n + n n
 Var: FinancialTrading 0 n + n n
 Param: GDPConcentration 0 n + n n	-1
@@ -1370,8 +1370,8 @@ Var: GDPnom 1 s + n n	-1
 Var: Gini 0 n + n n
 Param: Hired 0 n + n n	0.2
 Param: InProgress 0 n + n n	0
-Param: IncrAggProd 0 n + n n	0.01
-Param: IncrAvPrice 0 n + n n	0.01
+Param: IncrAggProd 0 s + n n	0.01
+Param: IncrAvPrice 0 s + n n	0.01
 Param: IndexYear 0 n + n n	2
 Var: Inflation 1 s + n n	-1
 Func: Init 0 n + n n
@@ -1431,14 +1431,14 @@ Var: TotEnergyConsumption 1 s + n n	0
 Param: TotHired 0 n + n n	20
 Param: TotHiredLag 0 n + n n	20
 Var: TotIncomeCapitaReal 0 n + n n
-Var: TotInventories 0 n + n n
+Var: TotInventories 0 s + n n
 Var: TotUSales 0 n + n n
 Var: TotVacancies 1 s + n n	27910000
 Param: TotalKProduction 0 n + n n	4.30599999979605e-314
 Var: Trade 0 n + d n
 Var: UnemploymentRate 1 s + n n	-1
 Param: UpperMinWage 0 n + n n	1.02
-Param: WageGrowth 0 n + n n	0.0006369
+Param: WageGrowth 0 s + n n	0.0006369
 Param: aAgProd 0 n + n n	0.01
 Param: aAvPrice 0 n + n n	0.1
 Param: aLTUR 0 n + n n	0.995
@@ -1468,7 +1468,7 @@ Param: tauMultiplier 0 n + n n	0.25
 Param: totNeeds 0 n + n n	10
 Param: zero 0 n + n n	0
 Param: EnergyGdpRatio 0 n + n n	0.05369
-Var: MinWageGr 0 n + n n
+Var: MinWageGr 0 s + n n
 Param: ExtraCapacity 0 n + n n	3
 Param: minVisibility 0 n + n n	0.5
 Param: MaxQGrowth 0 n + n n	10
@@ -1491,7 +1491,7 @@ Var: ControlWorkers 0 n + n n
 Var: WorkersEFRatio 0 n + n n
 Var: WorkersKRatio 0 n + n n
 Var: WorkersRatio 0 n + n n
-Param: NegUnemp 0 n + n n	0
+Param: NegUnemp 0 s + n n	0
 Var: TotBacklogRatio 0 n + n n
 Param: UnempTarget 0 n + n n	0.05
 Var: sGDPnom 1 n + n n	-1
@@ -1527,7 +1527,7 @@ Var: StatEF 0 n + n n
 Param: BrownGOSShare 0 n + n n	-1
 Param: GreenGOSShare 0 n + n n	-1
 Var: StatFirms 0 n + n n
-Param: FirmsGOSShare 0 n + n n	-1
+Param: FirmsGOSShare 0 s + n n	-1
 Var: dGDP 0 n + n n
 Param: Unemployment 0 n + n n	0
 Var: VacancyRate 0 n + n n
@@ -1553,7 +1553,7 @@ Var: GovDemTot 1 s + n n	0
 Var: ENGDP 0 n + n n
 Param: shareGDdown 0 n + n n	0
 Param: shareGDup 1 n + n n	1
-Var: GDGDPRatio 0 n + n n
+Var: GDGDPRatio 0 s + n n
 Var: DeficitGDPRatio 0 n + n n
 Param: stepshareGDup 0 n + n n	0.005
 Param: minshareGDup 0 n + n n	0.3
@@ -1589,14 +1589,14 @@ Param: CapitalIntens 0 n + n n	2
 Param: ExitFlag 0 n + n n	0
 Param: DivisorLiquidityFinance 0 n + n n	20
 Param: capMinWage 0 n + n n	0.04
-Var: TotEN 0 n + n n
+Var: TotEN 0 s + n n
 Param: ControlWaiting 0 n + n n	0
 Var: AvDiffCapacity 0 n + n n
 Var: NbrFirms 0 s + n n
 Var: NbrNotWaiting 0 n + n n
 Var: NbrWaiting 0 n + n n
 Var: TotBacklog 0 n + n n
-Var: AvMaxLaborProductivity 1 n + n n	1
+Var: AvMaxLaborProductivity 1 s + n n	1
 Var: TotLaborForce 0 n + n n
 Param: NumWorkersMaxGr 0 n + n n	0.005
 Param: NumWorkersMinInc 0 n + n n	5
@@ -1606,15 +1606,15 @@ Var: TotQ 0 s + n n
 Param: sPrice 0 n + n n	0
 Param: aClearingPrice 0 n + n n	0.5
 Param: aaNW 0 n + n n	0.02
-Var: AvMaxEfficiency 0 n + n n
+Var: AvMaxEfficiency 0 s + n n
 Param: aNWmin 0 n + n n	0.2
 Param: aNWmax 0 n + n n	0.9
 Param: aNWsmooth 0 n + n n	1
 Var: SumWagePrem 0 s + n n
 Var: SumLaborCost 0 s + n n
 Var: SumInvestment 0 s + n n
-Var: TotEN2 0 n + n n
-Var: TotStocks 0 n + n n
+Var: TotEN2 0 s + n n
+Var: TotStocks 0 s + n n
 Var: SumRevenues 0 s + n n
 Var: SumBacklogSales 0 n + n n
 Var: SumBacklogCh 0 n + n n
@@ -1638,7 +1638,7 @@ Param: aVisibility 0 n + n n	0.1
 Param: LTGDP 1 n + n n	0
 Param: aLTGDP 0 n + n n	0.95
 Param: aLTProfit 0 n + n n	0.95
-Param: RatioProfitGDP 1 n + n n	0
+Param: RatioProfitGDP 1 s + n n	0
 Param: minMarkup 0 n + n n	1.7
 Param: maxMarkup 0 n + n n	1.7
 Param: LTTotProfit 1 n + n n	0
@@ -1732,7 +1732,7 @@ Param: betaPrice 0 n + n n	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0.4	0
 Var: betaProd 0 n + n n
 Param: betaTime 0 n + n n	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2
 Param: numBLI 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-Var: price 1 n + n n	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10
+Var: price 1 s + n n	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10	10
 Var: ExtraPrice 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Param: product 0 n + n n	1	1	1	1	1	1	1	1	1	1	2	2	2	2	2	2	2	2	2	2	3	3	3	3	3	3	3	3	3	3	4	4	4	4	4	4	4	4	4	4	5	5	5	5	5	5	5	5	5	5	6	6	6	6	6	6	6	6	6	6	7	7	7	7	7	7	7	7	7	7	8	8	8	8	8	8	8	8	8	8	9	9	9	9	9	9	9	9	9	9	10	10	10	10	10	10	10	10	10	10
 Param: roRD 0 n + n n	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2	0.2
@@ -1762,9 +1762,9 @@ Var: OutstandingDebtFCh 0 n + n n
 Var: ControlRevenues 0 n + n n
 Param: flagNewEntrant 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 Var: VacanciesRatio 0 n + n n
-Var: UtilisationRate 0 n + n n
+Var: UtilisationRate 0 s + n n
 Var: GOS 0 n + n n
-Var: GOSShare 0 n + n n
+Var: GOSShare 0 s + n n
 Var: UnitELdiff 0 n + n n
 Var: IncomeBeforeDebtPaymentsF 0 n + n n
 Var: sIncomeBeforeDebtPaymentsF 1 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
@@ -2044,7 +2044,7 @@ Param: GreenKProdShock 0 n + n n	0.00045	0.00045	0.00045
 Param: IdKFirm 0 n + n n	1	2	3
 Param: LocalGreenInvestment 0 n + n n	0	0	0
 Var: ControlKPremia 0 n + n n
-Var: KRdExpenditure 0 n + n n
+Var: KRdExpenditure 0 s + n n
 Var: KENCost 0 n + n n
 Param: KDelivered 0 n + n n	0	0	0
 Param: KType 0 n + n n	2	0	1
@@ -2380,7 +2380,7 @@ Param: UnitKENCost 0 n + n n	10	10	10	10	10	10	10	10	10	10
 Var: WagePremEF 0 n + n n
 Param: WaitingEF 0 n + n n	0	0	0	0	0	0	0	0	0	0
 Var: alphaSize 0 n + n n
-Var: markupEF 1 n + n n	6	6	6	6	6	6	6	6	6	6
+Var: markupEF 1 s + n n	6	6	6	6	6	6	6	6	6	6
 Var: sBalanceEF 1 n + n n	0	0	0	0	0	0	0	0	0	0
 Var: sCashEF 1 n + n n	0	0	0	0	0	0	0	0	0	0
 Var: NbrLaborEF 0 n + n n
@@ -2391,7 +2391,7 @@ Var: CashEFAdjustment 0 n + n n
 Param: OrganicCashEF 0 n + n n	0	0	0	0	0	0	0	0	0	0
 Var: sInterestPaymentEF 1 n + n n	0	0	0	0	0	0	0	0	0	0
 Var: sCapitalCostEF 0 n + n n
-Var: AvKENProductivity 0 n + n n
+Var: AvKENProductivity 0 s + n n
 Var: msEN 0 n + n n
 Param: msENCapacity 0 n + n n	0	0	0	0	0	0	0	0	0	0
 Var: TimeSinceLastInv 1 n + n n	0	0	0	0	0	0	0	0	0	0
@@ -2429,7 +2429,7 @@ Param: alphaPP 0 n + n n	1	1	1	1	1	1	1	1	1	1
 Var: FairEnergyPP 0 n + n n
 Var: PriceEK 0 n + n n
 Var: shareLaborKEN 0 n + n n
-Var: UnitCostKEN 0 n + n n
+Var: UnitCostKEN 0 s + n n
 Param: KOandMExpenditure 0 n + n n	0	0	0	0	0	0	0	0	0	0
 Param: IdCur 0 n + n n	2	2	2	2	2	2	2	2	2	2
 Param: KillMe 0 n + n n	0	0	0	0	0	0	0	0	0	0
@@ -2443,9 +2443,9 @@ Param: wagecoeffEF 0 n + n n	1.6	1.6	1.6	1.6	1.6	1.6	1.6	1.6	1.6	1.6	1.6	1.6	1.6
 Param: PremiaEF 0 n + n n	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 
 Object: PP C	1
-Var: PricePP 1 n + n n	1
+Var: PricePP 1 s + n n	1
 Param: IdEF 0 n + n n	1
-Var: PricePPDoped 0 n + n n
+Var: PricePPDoped 0 s + n n
 
 SIM_NUM 10
 SEED 1
